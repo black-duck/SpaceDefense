@@ -1,4 +1,4 @@
-SpaceDefenece
+SpaceDefense
 =============
 
-Tower Defence game in HMTL5.
+Tower Defense game in HMTL5.
