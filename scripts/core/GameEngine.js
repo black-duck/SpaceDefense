@@ -34,9 +34,6 @@ GameEngine = {
 		ctx.drawImage( Loader.load(assets['background']),
 						0, 0, 
 						this.canvas.width, this.canvas.height);
-		ctx.drawImage( Loader.load(assets['turret']),
-						this.canvas.width/2, this.canvas.height- 50,
-						50,50);
 		//DRAFT end
 		
 		var ent = this.Entities;
