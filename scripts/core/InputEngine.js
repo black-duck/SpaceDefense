@@ -1,4 +1,4 @@
-InputEngineClass = Class.extend({
+InputEngine = {
 
         bindings: {},
 
@@ -10,17 +10,17 @@ InputEngineClass = Class.extend({
         },
 
         //-----------------------------
-        setup: function () {
+        setup: function (canvasID) {
                 //move key bindings
-                gInputEngine.bind(87, 'look-up');
-                gInputEngine.bind(65, 'look-left');
-                gInputEngine.bind(83, 'look-down');
-                gInputEngine.bind(68, 'look-right');
+                this.bind(87, 'look-up');
+                this.bind(65, 'look-left');
+                this.bind(83, 'look-down');
+                this.bind(68, 'look-right');
 
                 //fire key bindings
 //                gInputEngine.bind(81,'powerup-use');  //Q
 //                gInputEngine.bind(69,'fire-superWeapon');  //E
-                gInputEngine.bind(32,'fire-prmary');  //Space
+                this.bind(32,'fire-prmary');  //Space
 //                gInputEngine.bind(16,'fire-missile');  //Shift   Ascii code=0 key code=16
 
 
@@ -61,6 +61,4 @@ InputEngineClass = Class.extend({
                 gInputEngine.bindings[key] = action;
         }
 
-});
-
-gInputEngine = new InputEngineClass();
+};
