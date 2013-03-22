@@ -1,8 +1,18 @@
+
 //DRAFT - to be modified area start
+function fire(x,y) {
+
+	GameEngine.spawn( new factory['Bullet'](GameEngine.canvas.width/2, 
+											GameEngine.canvas.height,
+											x, y));
+
+}
+
 assets = { 
 	'background': 'img/black.jpg',
 	'turret'	: 'img/turret.jpg',
-	'ship' 		: 'img/ship.jpg'
+	'ship' 		: 'img/ship.jpg',
+	'bullet'	: 'img/bullet.jpg'
 }
 
 factory = {};
@@ -46,9 +56,10 @@ GameEngine = {
 
 	},
 
-	spawn: function (EntityClass) {
+	//spawn must use String of Classname as param
+	spawn: function (Entity) {
 		
-		this.Entities.push( new EntityClass() ); 
+		this.Entities.push(Entity); 
 
 	},
 	

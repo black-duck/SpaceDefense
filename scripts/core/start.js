@@ -4,7 +4,7 @@ DELAY = 1000.0/60.0;
 
 
 //DRAFT start
-	GameEngine.spawn(factory['SimpleShip']);
+	GameEngine.spawn( new factory['SimpleShip']() );
 //DRAFT end
 
 (function () {
