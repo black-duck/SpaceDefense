@@ -45,6 +45,14 @@ GameEngine = {
 	},
 	update: function () {
 		
+		//DRAFT start
+		if(gInputEngine.actions['fire-prmary']) {
+
+			fire(mouse.x,mouse.y);
+		}		
+		//DRAFT end
+
+
 		var ent = this.Entities;
 		
 		for ( i in ent ) {

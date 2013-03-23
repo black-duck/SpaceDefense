@@ -37,7 +37,7 @@ Loader = {
 		audio.onload = function() {
 			soundCache[src] = audio;
 		};
-
+		audio.preload = 'auto';
 		audio.src = src;
 		return audio;
 

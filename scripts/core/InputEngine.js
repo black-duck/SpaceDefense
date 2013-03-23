@@ -39,6 +39,7 @@ InputEngine = Class.extend({
         //-----------------------------
         onKeyDown: function (event) {
 
+				console.log('key down');
                 var action = gInputEngine.bindings[event.keyID];
 
                 if (action) {
