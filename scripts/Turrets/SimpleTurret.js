@@ -2,7 +2,7 @@ factory['Turret'] = Class.extend({
 
     // Represents how many pixels correspond to a degree. 
     // A lower value corresponds to a more flexible turret.
-    flexibility: 6,
+    flexibility: 5,
 
 	size: {
 		x: 80,
@@ -14,12 +14,13 @@ factory['Turret'] = Class.extend({
 		y: 600
 	},
 
-    angle: 30,
+    angle: 0,
 
 	img: assets['turret'],
 
     update: function() {
-        this.angle = (gInputEngine.mouse.x - canvas.width / 2) / this.flexibility;
+        // TODO: This needs work.
+        this.angle = (gInputEngine.mouse.x - canvas.width - 150) / this.flexibility;
     },
 
 	draw: function(ctx) {

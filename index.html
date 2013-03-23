@@ -1,17 +1,61 @@
 <!DOCTYPE html>
+<html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
 	<script type="text/javascript" src="scripts/core/Loader.js"></script> 
 	<script type="text/javascript" src="scripts/core/GameEngine.js"></script>
 	<script type="text/javascript" src="scripts/core/Class.js"></script>  
 	<script type="text/javascript" src="scripts/core/InputEngine.js"></script>
 	<script type="text/javascript" src="scripts/core/Drawer.js"></script>
-
 	<script type="text/javascript" src="scripts/Turrets/SimpleTurret.js"></script>
 	<script type="text/javascript" src="scripts/Ships/SimpleShip.js"></script>
-	<script type="text/javascript" src="scripts/Ammo/Bullet.js"></script>
+	<script type="text/javascript" src="scripts/Ammo/Bullet.js"></script>  
+    <script type="text/javascript" src="scripts/core/start.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
+
+    <style>
+        body {
+            background-color: black; 
+            color: white;
+        }
+
+        .MenuButton {
+            font-size: 22px;
+            cursor: pointer;
+        }
+
+        canvas {
+            display: none;
+            
+        }
+
+        #Space {
+            text-align: center;
+            width: 800px;
+            height: 600px;
+            margin: 0px auto;
+            border: 1px solid white;
+        }
+
+    </style>
 </head>
+
 <body>
+    <div id="Space">
+    <div id="SplashScreen">
+    <h1>Space Defence</h1>
+    <div id="StartButton" class="MenuButton">Start</div>
+    </div>
 	<canvas id='canvas' width="800px" height="600px"></canvas>
-	<script type="text/javascript" src="scripts/core/start.js"></script>
+    </div> 
+
+    <script>
+    $("#StartButton").click(function () {
+        $("#SplashScreen").hide();
+        $("#canvas").show();
+        startGame();
+    });
+    </script>
 </body>
 </html>
