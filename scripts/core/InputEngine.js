@@ -1,4 +1,4 @@
-InputEngine = {
+InputEngine = Class.extend({
 
         bindings: {},
 
@@ -25,9 +25,9 @@ InputEngine = {
 
 
                 //event listeners
-                document.getElementById('spaceCanvas').addEventListener('mousemove', gInputEngine.onMouseMove);
-                document.getElementById('spaceCanvas').addEventListener('keydown', gInputEngine.onKeyDown);
-                document.getElementById('spaceCanvas').addEventListener('keyup', gInputEngine.onKeyUp);
+                document.getElementById('canvas').addEventListener('mousemove', gInputEngine.onMouseMove);
+                document.getElementById('canvas').addEventListener('keydown', gInputEngine.onKeyDown);
+                document.getElementById('canvas').addEventListener('keyup', gInputEngine.onKeyUp);
         },
 
         //-----------------------------
@@ -61,4 +61,6 @@ InputEngine = {
                 gInputEngine.bindings[key] = action;
         }
 
-};
+});
+
+var gInputEngine = new InputEngine();
