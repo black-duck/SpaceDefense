@@ -50,7 +50,7 @@ PhysicsEngine = {
   	},
 
 	update: function () {
-  
+ 		
 		var start = Date.now();
     	this.world.Step(
     				PHYSICS_LOOP_HZ, //frame-rate

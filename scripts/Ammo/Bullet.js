@@ -1,7 +1,8 @@
 
 factory['Bullet'] = Class.extend({ 
 
-	speed: 2,
+	physBody: null,
+	speed: 1,
 
 	size: {
 		x: 5,
@@ -13,41 +14,54 @@ factory['Bullet'] = Class.extend({
 		y: 0
 	},
 
-	moveTo: {
+	dir: {
 		x: 0,
 		y: 0
 	},
 
 	img: assets['bullet'],
 
-	init: function(Sx,Sy,Ex,Ey) {
-	
-		this.pos.x = Sx;
-		this.pos.y = Sy;
-		this.moveTo.x = Ex;
-		this.moveTo.y = Ey;
+	init: function(sX, sY, eX, eY) {
+
+		this.pos.x = sX;
+		this.pos.y = sY;
+		this.dir.x = eX;
+		this.dir.y = eY;
+
+		this.physBody = PhysicsEngine.addBody({
+							
+								id: 'bullet',
+	                             x: sX,
+	                        	 y: sY,
+	                        	 userData: { id: 'bullet',
+	                            	         ent: this 
+	                                     },
+	             
+	                             halfWidth: this.size.y/2,
+	                             halfHeight: this.size.x/2
+	 
+	                        });     
+		
+		var vec = new Vec2(this.dir.x, this.dir.y);
+		vec.Normalize();
+		vec.Multiply(this.speed);
+		this.physBody.SetLinearVelocity(vec);
 	
 	},
 
 	update: function() {
-		//DRAFT- we will use physic engine insted
-		if ( this.pos.x > this.moveTo.x ) {
-			this.pos.x -= this.speed;
-
-		}
-		else if ( this.pos.x < this.moveTo.x ) {
-			 this.pos.x += this.speed;
-		}
+		 
+		var vec = new Vec2(this.dir.x, this.dir.y);
+		vec.Normalize();
+		vec.Multiply(this.speed);
+		this.physBody.SetLinearVelocity(vec);
 		
-		if ( this.pos.y > this.moveTo.y ) {
-			 this.pos.y -= this.speed;
+		if (this.physBody != null) {
+			var pPos = this.physBody.GetPosition();
+			this.pos.x = pPos.x;
+			this.pos.y = pPos.y;
+		}
 
-		}
-		else if ( this.pos.y < this.moveTo.y ) {
-			  this.pos.y += this.speed;
-		}
-		//DRAFT end
-	
 	},
 
 	draw: function(ctx) {
