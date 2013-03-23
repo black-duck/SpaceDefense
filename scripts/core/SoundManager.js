@@ -1,9 +1,9 @@
 soundManager = {
 	effectsVolume: 1,
 	musicVolume: 1,
-	offsetVolume: 0.1;
+	offsetVolume: 0.1,
 	globalMute: false,
-	audioType: 'ogg';
+	audioType: 'ogg',
 	
 	init: function(){
 		var audio =  new Audio();
@@ -172,5 +172,5 @@ soundManager = {
 	
 	
 	
-	tempVar: 0;
+	tempVar: 0
 };
