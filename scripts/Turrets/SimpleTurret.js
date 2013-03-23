@@ -18,7 +18,7 @@ factory['Turret'] = Class.extend({
 
 	img: assets['turret'],
 
-    update: function(ctx) {
+    update: function() {
         this.angle = (gInputEngine.mouse.x - canvas.width / 2) / this.flexibility;
     },
 
