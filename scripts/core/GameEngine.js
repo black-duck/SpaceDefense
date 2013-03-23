@@ -60,10 +60,10 @@ GameEngine = {
 
 	},
 	
-	init: function (canvasId) {
-		this.canvas = document.getElementById(canvasId);
-		this.ctx = this.canvas.getContext('2d');
-		Loader.preload(assets['background']);
+	init: function (canvas) {
+
+		this.canvas = canvas;
+		this.ctx = canvas.getContext('2d');
 	
 	}
 	
