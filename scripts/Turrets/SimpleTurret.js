@@ -5,7 +5,7 @@ factory['Turret'] = Class.extend({
     flexibility: 6,
 
 	size: {
-		x: 160,
+		x: 80,
 		y: 80
 	},
 	
@@ -23,12 +23,8 @@ factory['Turret'] = Class.extend({
     },
 
 	draw: function(ctx) {
-        ctx.save();
-        ctx.translate(this.pos.x, this.pos.y);         
-        ctx.rotate(this.angle * Math.PI/180);            
-        ctx.drawImage(Loader.load(this.img), -(this.size.x/2), -(this.size.y/2), this.size.x, this.size.y); 
-        ctx.restore();
-	} 
-
-	
+		Drawer.image( this.img, this.pos.x, this.pos.y, this.angle, 
+						this.size.x, this.size.y);
+		
+	}	
 });
