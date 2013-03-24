@@ -1,4 +1,3 @@
-
 DELAY = 1000.0/60.0;
 
 function loop() {
@@ -9,15 +8,15 @@ function loop() {
 }
 
 function startGame() {
-
+	var canvas = document.getElementById('canvas');
     //DRAFT start
     GameEngine.spawn(new factory['SimpleShip']());
     GameEngine.spawn(new factory['Turret']());
-    gInputEngine.setup();
+    InputEngine.setup(canvas);
     //DRAFT end
 
 
-    var canvas = document.getElementById('canvas');
+   
     
     GameEngine.init(canvas);
     Drawer.init(canvas);

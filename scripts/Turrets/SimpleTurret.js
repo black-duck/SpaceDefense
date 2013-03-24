@@ -20,7 +20,7 @@ factory['Turret'] = Class.extend({
 
     update: function() {
         // TODO: This needs work.
-        this.angle = (gInputEngine.mouse.x - canvas.width - 150) / this.flexibility;
+        this.angle = (InputEngine.mouse.x - canvas.width - 150) / this.flexibility;
     },
 
 	draw: function(ctx) {
