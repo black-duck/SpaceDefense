@@ -89,7 +89,7 @@ soundManager = {
 	//Play the sound effect
 	playSound: function(src){
 		try{
-			var audio = Loader.load(src + this.audioType);
+			var audio = Loader.load(src + '.' + this.audioType);
 			
 			audio.autoplay = false;
 			audio.muted = this.globalMute;
@@ -115,7 +115,7 @@ soundManager = {
 		},
 		
 		startmusic: function(){
-			this.maudio = Loader.load(mArray[this.counter] + this.audioType);
+			this.maudio = Loader.load(mArray[this.counter] + '.' + this.audioType);
 			this.maudio.autoplay = false;
 			this.maudio.muted = false;
 			this.maudio.play();
