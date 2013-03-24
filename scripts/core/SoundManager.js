@@ -1,5 +1,5 @@
 soundManager = {
-	//General variables for the sound of the app
+	//General variables
 	effectsVolume: 1,
 	
 	musicVolume: 1,
@@ -26,7 +26,7 @@ soundManager = {
 	 * Some Code Here
 	 */
 	 
-	//Sound object for management the sounds effects
+	//Sound object for the sounds effects management
 	sounds: {
 	
 		sArray: new Array(),
@@ -101,7 +101,7 @@ soundManager = {
 			console.log('Error In Sound Play');
 		}
 	},
-	//Music object for the music managment
+	//Music object for the music management
 	music: {
 		//This array will hold the links
 		mArray: new Array(),
