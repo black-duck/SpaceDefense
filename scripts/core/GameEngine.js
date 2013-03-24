@@ -3,12 +3,7 @@ function SpawnShip(entry, exit) {
 
     GameEngine.spawn(new factory['SimpleShip'](entry.x, entry.y, exit.x, exit.y));
 }
-//Draft testing
-function rotate(rot_x,rot_y)
-{
-	
-}
-//End of Draft testing
+
 //DRAFT - to be modified area start
 Player0 = {
 	turret: null
