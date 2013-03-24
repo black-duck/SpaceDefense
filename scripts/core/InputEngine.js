@@ -36,13 +36,14 @@ InputEngine = {
                 document.addEventListener('keyup', InputEngine.onKeyUp,true);
         },
 	onMouseDown:function(event){
-		  //  console.log('clickx: '+event.clientX+" clicky: "+event.clientY);
-                    InputEngine.mouse.x = event.clientX;
-                    InputEngine.mouse.y = event.clientY;
-                    var action = InputEngine.bindings[32];
-                    if (action) {
-                          InputEngine.actions[action] = true;
-                    }
+		//  console.log('clickx: '+event.clientX+" clicky: "+event.clientY);
+		if (event.button==2){return false;}
+		InputEngine.mouse.x = event.clientX;
+                InputEngine.mouse.y = event.clientY;
+                var action = InputEngine.bindings[32];
+                if (action) {
+                       InputEngine.actions[action] = true;
+                }
 	},
 	onMouseUp:function(event){
 	var action = InputEngine.bindings[32];
