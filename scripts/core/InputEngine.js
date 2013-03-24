@@ -58,8 +58,7 @@ InputEngine = {
         onMouseMove: function (event) {
                var rect = document.getElementById('canvas').getBoundingClientRect();
 		InputEngine.mouse.x = event.clientX-rect.left;
-                InputEngine.mouse.y = event.clientY-rect.top;
-				
+                InputEngine.mouse.y = event.clientY-rect.top;		
         },
 
         //-----------------------------

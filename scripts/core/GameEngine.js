@@ -4,6 +4,7 @@ Player0 = {
 	turret: null
 }
 
+
 assets = { 
 	'background': 'img/black.jpg',
 	'turret'	: 'img/turret.jpg',
@@ -21,6 +22,23 @@ GameEngine = {
 	canvas: null,
 
 	Entities: [],
+
+	init: function (canvas) {
+
+		this.canvas = canvas;
+		this.ctx = canvas.getContext('2d');
+	
+		PhysicsEngine.addContactListener({
+			
+			PostSolve: function(A,B) {
+				if( A.GetUserData().id == 'bullet' ) {
+					B.GetUserData().ent.kill();
+					A.GetUserData().ent.kill();
+				}
+			}
+
+		});
+	},
 
 	draw: function () {
 
@@ -49,28 +67,49 @@ GameEngine = {
 			Player0.turret._fireTrigger = false;	
 		}
 		if(InputEngine.actions['look-up']) {
-			InputEngine.mouse.x=696;
-			InputEngine.mouse.y=233;
-		};
-		if(InputEngine.actions['look-down']) {
-			InputEngine.mouse.x=0;
-			InputEngine.mouse.y=0;
+			if (InputEngine.mouse.x<420){
+				InputEngine.mouse.x+=20;
+				InputEngine.mouse.y=-1;}
+			else if (InputEngine.mouse.x>420){
+				InputEngine.mouse.x-=20;
+				InputEngine.mouse.y=-1;}
+			
 		};
 		if(InputEngine.actions['look-right']) {
-			InputEngine.mouse.x=870;
-			InputEngine.mouse.y=100
+			if(InputEngine.mouse.x<880){
+				InputEngine.mouse.x+=20;
+				InputEngine.mouse.y=100;
+			}
 		};
 		if(InputEngine.actions['look-left']) {
-			InputEngine.mouse.x=511;
-			InputEngine.mouse.y=134;
+			if (InputEngine.mouse.x>-20){
+				InputEngine.mouse.x-=20;
+				InputEngine.mouse.y=134;
+			}
 		};
 		//DRAFT end
 
 		
 		var ent = this.Entities;
+		var dead = [];	
+
+		for (var i=ent.length; i-- ; i) {
 		
-		for ( i in ent ) {
-			ent[i].update();	
+			if (ent[i]._killed === true) {
+				dead.push(i);
+			} 
+			else {
+				ent[i].update();	
+			}
+		}
+
+		for (var i=0; i < dead.length; i++) {
+			
+			if (ent[dead[i]].physBody !== null) {
+				PhysicsEngine.removeBodyAsObj(ent[dead[i]].physBody);			
+			}
+			ent.splice(dead[i], 1);
+
 		}
 
 	},
@@ -82,11 +121,10 @@ GameEngine = {
 		return Entity;
 	},
 	
-	init: function (canvas) {
 
-		this.canvas = canvas;
-		this.ctx = canvas.getContext('2d');
-	
+	removeEntity: function(ent) {
+
+		ent._killed = true;
 	}
 
 }

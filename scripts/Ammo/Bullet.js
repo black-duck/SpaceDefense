@@ -2,7 +2,9 @@
 factory['Bullet'] = Class.extend({ 
 
 	physBody: null,
-	speed: 1,
+	speed: 8,
+	lifetime: 5000,
+	_killed: false,
 
 	size: {
 		x: 5,
@@ -18,6 +20,7 @@ factory['Bullet'] = Class.extend({
 		x: 0,
 		y: 0
 	},
+
 
 	img: assets['bullet'],
 
@@ -61,7 +64,17 @@ factory['Bullet'] = Class.extend({
 			this.pos.x = pPos.x;
 			this.pos.y = pPos.y;
 		}
+		if (this.lifetime <= 0) {
+			this.kill();
+		}
+		else {
+			this.lifetime -= 1000/60;
+		}
 
+	},
+
+	kill: function () {
+		this._killed= true;
 	},
 
 	draw: function(ctx) {
