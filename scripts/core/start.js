@@ -1,10 +1,12 @@
 DELAY = 1000.0/60.0;
 
 function loop() {
-    	GameEngine.update();
-	PhysicsEngine.update();
+		var start = new Date();
+		GameEngine.update();
+		PhysicsEngine.update();
     	GameEngine.draw();
-    	window.setTimeout(loop, DELAY);
+
+    	window.setTimeout(loop, DELAY - (new Date() - start)  );
 }
 
 function startGame() {
