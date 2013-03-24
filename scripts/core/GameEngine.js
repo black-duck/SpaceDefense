@@ -1,7 +1,6 @@
-   
+ 
 function SpawnShip(entry, exit) {
-
-    GameEngine.spawn(new factory['SimpleShip'](entry.x, entry.y, exit.x, exit.y));
+    GameEngine.spawn(new factory['SimpleShip'](entry.x, entry.y, exit.x - entry.x, exit.y - entry.y));
 }
 
 //DRAFT - to be modified area start
