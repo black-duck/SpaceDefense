@@ -18,6 +18,7 @@
 	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
 	<script type="text/javascript">
 		SoundManager.loadMusic(['sounds/Fifty_Percent_-_Bright_Air']);
+		SoundManager.playMusic();
 	</script>
     <style>
         body {
@@ -51,7 +52,7 @@
     <div id="SplashScreen">
     <h1>Space Defence</h1>
     <div id="StartButton" class="MenuButton">Start</div>
-	<div id="StartMusic" class="MenuButton">Music ON</div>
+	<div id="StartMusic" class="MenuButton">Music OFF</div>
     </div>
 	<canvas id='canvas' width="800px" height="600px"></canvas>
     </div> 
@@ -64,7 +65,7 @@
     });
 	
 	$("#StartMusic").click(function () {
-        SoundManager.playMusic()
+        SoundManager.maudio.pause();
     });
 	
 	</script>
