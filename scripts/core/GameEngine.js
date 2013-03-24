@@ -1,12 +1,7 @@
- 
-function SpawnShip(entry, exit) {
-    GameEngine.spawn(new factory['SimpleShip'](entry.x, entry.y, exit.x - entry.x, exit.y - entry.y));
-}
-
 //DRAFT - to be modified area start
 Player0 = {
+    playing: true,
 	turret: null
-
 }
 
 assets = { 
@@ -24,34 +19,6 @@ GameEngine = {
 
 	ctx: null,
 	canvas: null,
-
-    // DRAFT - Entries and exit points should be defined at the AI module.
-
-    entry1: {
-        x: 1,
-        y: 1
-    },
-
-    entry2: {
-        x: 400,
-        y: 1
-    },
-
-    entry3: {
-        x: 750,
-        y: 1
-    },
-
-    exit1: {
-        x: 1,
-        y: 600
-    },
-
-    exit2: {
-        x: 800,
-        y: 600
-    },      
-
 
 	Entities: [],
 
