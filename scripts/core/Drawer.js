@@ -26,9 +26,9 @@ Drawer = {
 			canvRot = arguments[3];
 
 			ctx.save();
-			ctx.translate(canvX -(img.width/2), canvY -(img.heigth/2) );
+			ctx.translate(canvX, canvY);
 			ctx.rotate(canvRot);
-			ctx.drawImage( img, -(img.width/2), -(img.height/2));
+			ctx.drawImage( img, -(img.width/2), -(img.width/2));
 			ctx.restore();
 		} 
 		else if ( arguments.length == 5) {
@@ -45,9 +45,9 @@ Drawer = {
 			canvHeight = arguments[5];
 			
 			ctx.save();
-			ctx.translate(canvX -(canvWidth/2), canvY -(canvHeight/2) );
+			ctx.translate(canvX, canvY);
 			ctx.rotate(canvRot);
-			ctx.drawImage( img, -(canvWidth/2), -(canvHeight/2), 
+			ctx.drawImage( img, -(canvWidth/2), -(canvWidth/2), 
 							canvWidth, canvHeight);
 			ctx.restore();
 		}
