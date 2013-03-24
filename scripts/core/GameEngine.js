@@ -10,6 +10,7 @@ Player0 = {
 
 }
 
+
 assets = { 
 	'background': 'img/black.jpg',
 	'turret'	: 'img/turret.jpg',
@@ -107,9 +108,20 @@ GameEngine = {
 
 		
 		var ent = this.Entities;
+		var dead = [];	
+
+		for (var i=0; i < ent.length; i++) {
 		
-		for ( i in ent ) {
-			ent[i].update();	
+			if (ent[i]._killed === true) {
+				dead.push(i);
+			} 
+			else {
+				ent[i].update();	
+			}
+		}
+
+		for (var i=0; i < dead.length; i++) {
+			ent.splice(dead[i], 1);
 		}
 
 	},
@@ -126,6 +138,11 @@ GameEngine = {
 		this.canvas = canvas;
 		this.ctx = canvas.getContext('2d');
 	
+	},
+
+	removeEntity: function(ent) {
+
+		ent._killed = true;
 	}
 
 }
