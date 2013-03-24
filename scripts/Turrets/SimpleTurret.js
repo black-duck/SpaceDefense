@@ -1,9 +1,5 @@
 factory['Turret'] = Class.extend({ 
 
-    // Represents how many pixels correspond to a degree. 
-    // A lower value corresponds to a more flexible turret.
-    flexibility: 5,
-
 	size: {
 		x: 80,
 		y: 80
