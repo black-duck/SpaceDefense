@@ -29,12 +29,13 @@ InputEngine = {
 
 			
                 //event listeners
-                 document.getElementById('canvas').addEventListener('click',InputEngine.onMouseClick,true);
+                document.getElementById('canvas').addEventListener('mousedown',InputEngine.onMouseDown,true);
+                document.getElementById('canvas').addEventListener('mouseup',InputEngine.onMouseUp,true);
                 document.getElementById('canvas').addEventListener('mousemove', InputEngine.onMouseMove,true);
                 document.addEventListener('keydown', InputEngine.onKeyDown,true);
                 document.addEventListener('keyup', InputEngine.onKeyUp,true);
         },
-	onMouseClick:function(event){
+	onMouseDown:function(event){
 		  //  console.log('clickx: '+event.clientX+" clicky: "+event.clientY);
                     InputEngine.mouse.x = event.clientX;
                     InputEngine.mouse.y = event.clientY;
@@ -42,7 +43,12 @@ InputEngine = {
                     if (action) {
                           InputEngine.actions[action] = true;
                     }
-
+	},
+	onMouseUp:function(event){
+	var action = InputEngine.bindings[32];
+                    if (action) {
+                          InputEngine.actions[action] = false;
+                    }
 	},
         //-----------------------------
         onMouseMove: function (event) {

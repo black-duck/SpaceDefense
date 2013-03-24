@@ -51,7 +51,6 @@ GameEngine = {
 			normal.y=InputEngine.mouse.y-InputEngine.mouse.y-1;
 			//end of draft
 			fire(normal.x,normal.y);
-			InputEngine.actions['fire-primary']=false;
 		};	
 		if(InputEngine.actions['look-up']) {
 			InputEngine.mouse.x=696;
