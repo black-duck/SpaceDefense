@@ -27,7 +27,7 @@ Drawer = {
 
 			ctx.save();
 			ctx.translate(canvX -(img.width/2), canvY -(img.heigth/2) );
-			ctx.rotate(canvRot * Math.PI/180);
+			ctx.rotate(canvRot);
 			ctx.drawImage( img, -(img.width/2), -(img.height/2));
 			ctx.restore();
 		} 
@@ -46,7 +46,7 @@ Drawer = {
 			
 			ctx.save();
 			ctx.translate(canvX -(canvWidth/2), canvY -(canvHeight/2) );
-			ctx.rotate(canvRot * Math.PI/180);
+			ctx.rotate(canvRot);
 			ctx.drawImage( img, -(canvWidth/2), -(canvHeight/2), 
 							canvWidth, canvHeight);
 			ctx.restore();
