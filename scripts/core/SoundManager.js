@@ -1,4 +1,4 @@
-soundManager = {
+SoundManager = {
 	//General variables
 	effectsVolume: 1,
 	
