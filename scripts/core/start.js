@@ -12,25 +12,13 @@ function loop() {
 
 function startGame() {
 	var canvas = document.getElementById('canvas');
-<<<<<<< HEAD
-
+    
     // Do some initialization.
     InputEngine.setup(canvas);
+    PhysicsEngine.init(); //PhysicsEngine must be init before GameEngine.
     GameEngine.init(canvas);
     Drawer.init(canvas);
-    PhysicsEngine.init();
-    Gameplay.init();    
-=======
-
-    	//DRAFT start
-    	Player0.turret = GameEngine.spawn(new factory['Turret']());
-    	InputEngine.setup(canvas);
-    	//DRAFT end
-
-		PhysicsEngine.init();//PhysicsEngine must be init before GameEngine
-    	GameEngine.init(canvas);
-    	Drawer.init(canvas);
->>>>>>> 3db233f187d04fec05af00e3ba827e9117db397e
+    Gameplay.init();
 
     // And loop.
     loop();
