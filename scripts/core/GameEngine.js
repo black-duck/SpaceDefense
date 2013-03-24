@@ -8,8 +8,8 @@ Player0 = {
 assets = { 
 	'background': 'img/black.jpg',
 	'turret'	: 'img/turret.jpg',
-	'ship' 		: 'img/ship.jpg',
-	'bullet'	: 'img/bullet.jpg'
+	'ship' 		: 'img/ship.png',
+	'bullet'	: 'img/bullet.png'
 }
 
 factory = {};
