@@ -224,11 +224,6 @@ soundManager = {
 	//Supported audio type
 	soundType: function(){
 		return this.audioType;
-	},
+	}
 	
-	
-	
-	
-	
-	tempVar: 0 //Draft variable
-};
+}
