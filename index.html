@@ -16,12 +16,9 @@
 	<script type="text/javascript" src="scripts/Ammo/Bullet.js"></script>  
     <script type="text/javascript" src="scripts/core/start.js"></script> 
 	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-<script type="text/javascript">
-//Draft
-//SoundManager.loadMusic(['sounds/Fifty_Percent_-_Bright_Air.mp3']);
-//SoundManager.playMusic();
-
-</script>
+	<script type="text/javascript">
+		SoundManager.loadMusic(['sounds/Fifty_Percent_-_Bright_Air']);
+	</script>
     <style>
         body {
             background-color: black; 
@@ -54,6 +51,7 @@
     <div id="SplashScreen">
     <h1>Space Defence</h1>
     <div id="StartButton" class="MenuButton">Start</div>
+	<div id="StartMusic" class="MenuButton">Music ON</div>
     </div>
 	<canvas id='canvas' width="800px" height="600px"></canvas>
     </div> 
@@ -64,7 +62,12 @@
         $("#canvas").show();
         startGame();
     });
+	
+	$("#StartMusic").click(function () {
+        SoundManager.playMusic()
+    });
+	
 	</script>
-
+	
 </body>
 </html>
