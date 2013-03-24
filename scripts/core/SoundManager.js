@@ -90,12 +90,11 @@ SoundManager = {
 	playSound: function(src){
 		try{
 			var audio = Loader.load(src + '.' + this.audioType);
-			
 			audio.autoplay = false;
 			audio.muted = this.globalMute;
 			audio.volume = this.effectsVolume;
-			
-			this.sounds.add(audio);
+			audio.play();
+			//this.sounds.add(audio);
 		}
 		catch(e){
 			console.log('Error In Sound Play');
