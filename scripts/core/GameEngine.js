@@ -2,9 +2,7 @@
 //DRAFT - to be modified area start
 function fire(x,y) {
 
-	GameEngine.spawn( new factory['Bullet'](GameEngine.canvas.width/2, 
-											GameEngine.canvas.height,
-											x, y));
+	GameEngine.spawn( new factory['Bullet'](GameEngine.canvas.width/2,GameEngine.canvas.height,x, y));
 
 }
 
@@ -46,9 +44,16 @@ GameEngine = {
 	update: function () {
 		
 		//DRAFT start
-		if(gInputEngine.actions['fire-prmary']) {
-
-			fire(mouse.x,mouse.y);
+		if(gInputEngine.actions['fire-primary']) {
+			var normal={};
+			//draft normalize of mouse coordinates for visual result
+			normal.x=gInputEngine.mouse.x-gInputEngine.mouse.x-1;
+			normal.y=gInputEngine.mouse.y-gInputEngine.mouse.y-1;
+			//normalize(gInputEngine.mouse.x,gInputEngine.mouse.y);
+			//console.log("normal:"+normal.x);		
+			//end of draft
+			fire(normal.x,normal.y);
+			gInputEngine.actions['fire-primary']=false;
 		}		
 		//DRAFT end
 
@@ -74,10 +79,7 @@ GameEngine = {
 		this.ctx = canvas.getContext('2d');
 	
 	}
-	
-	
 
 }
-
 
 

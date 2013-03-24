@@ -20,36 +20,51 @@ InputEngine = Class.extend({
                 //fire key bindings
 //                gInputEngine.bind(81,'powerup-use');  //Q
 //                gInputEngine.bind(69,'fire-superWeapon');  //E
-                this.bind(32,'fire-prmary');  //Space
+                this.bind(32,'fire-primary');  //Space
 //                gInputEngine.bind(16,'fire-missile');  //Shift   Ascii code=0 key code=16
 
 
                 //event listeners
+		document.getElementById('canvas').addEventListener('click',gInputEngine.onMouseClick);
                 document.getElementById('canvas').addEventListener('mousemove', gInputEngine.onMouseMove);
                 document.getElementById('canvas').addEventListener('keydown', gInputEngine.onKeyDown);
                 document.getElementById('canvas').addEventListener('keyup', gInputEngine.onKeyUp);
         },
 
         //-----------------------------
-        onMouseMove: function (event) {
+	onMouseClick:function(event){
+		console.log('click');
                 gInputEngine.mouse.x = event.clientX;
                 gInputEngine.mouse.y = event.clientY;
+		var action = gInputEngine.bindings[32];
+                if (action) {
+                        gInputEngine.actions[action] = true;
+                }
+
+},
+
+        //-----------------------------
+        onMouseMove: function (event) {
+               	gInputEngine.mouse.x = event.clientX;
+                gInputEngine.mouse.y = event.clientY;
+ 		var action = gInputEngine.bindings[event.keyID];
+                if (action) {
+                        gInputEngine.actions[action] = true;
+                }
         },
 
         //-----------------------------
         onKeyDown: function (event) {
-
-				console.log('key down');
+		console.log('key down');
                 var action = gInputEngine.bindings[event.keyID];
-
-                if (action) {
+		if (action) {
                         gInputEngine.actions[action] = true;
                 }
         },
 
    //-----------------------------
         onKeyUp: function (event) {
-
+		console.log('key up');
                 var action = gInputEngine.bindings[event.keyID];
 
                 if (action) {
