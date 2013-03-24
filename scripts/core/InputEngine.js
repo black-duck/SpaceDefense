@@ -27,13 +27,23 @@ InputEngine = {
                 InputEngine.bind(32,'fire-primary');  //Space
 //                gInputEngine.bind(16,'fire-missile');  //Shift   Ascii code=0 key code=16
 
-				document.getElementById(canvasId).getContext('2d');
+			
                 //event listeners
+                 document.getElementById('canvas').addEventListener('click',InputEngine.onMouseClick);
                 document.getElementById(canvasId).addEventListener('mousemove', InputEngine.onMouseMove,true);
                 document.getElementById(canvasId).addEventListener('keydown', InputEngine.onKeyDown,true);
                 document.getElementById(canvasId).addEventListener('keyup', InputEngine.onKeyUp,true);
         },
+	onMouseClick:function(event){
+		    console.log('click');
+                    InputEngine.mouse.x = event.clientX;
+                    InputEngine.mouse.y = event.clientY;
+                    var action = InputEngine.bindings[32];
+                    if (action) {
+                          InputEngine.actions[action] = true;
+                    }
 
+	},
         //-----------------------------
         onMouseMove: function (event) {
                 var posX = event.clientX;
