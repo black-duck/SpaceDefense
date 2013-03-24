@@ -213,10 +213,10 @@ soundManager = {
 	},
 	//Global volume
 	globalVolume: function(){
-		var temp = Math.abs(this.effectsVolume - this.volumeMusic);
-		temp = Math.floor(temp * 100);	
+		var diff = Math.abs(this.effectsVolume - this.volumeMusic);
+		diff = Math.floor(diff * 100);	
 		
-		if( temp == 0) 
+		if(diff == 0) 
 			return Math.floor(this.volumeMusic * 100);
 		else
 			return  Math.floor((this.effectsVolume + this.volumeMusic) * 100 / 2);
@@ -225,5 +225,6 @@ soundManager = {
 	soundType: function(){
 		return this.audioType;
 	}
+	
 	
 }
