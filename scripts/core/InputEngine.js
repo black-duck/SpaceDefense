@@ -22,20 +22,20 @@ InputEngine = {
                 InputEngine.bind(68, 'look-right');
 
                 //fire key bindings
-//                gInputEngine.bind(81,'powerup-use');  //Q
-//                gInputEngine.bind(69,'fire-superWeapon');  //E
+//             InputEngine.bind(81,'powerup-use');  //Q
+//             InputEngine.bind(69,'fire-superWeapon');  //E
                 InputEngine.bind(32,'fire-primary');  //Space
-//                gInputEngine.bind(16,'fire-missile');  //Shift   Ascii code=0 key code=16
+//             InputEngine.bind(16,'fire-missile');  //Shift   Ascii code=0 key code=16
 
 			
                 //event listeners
                  document.getElementById('canvas').addEventListener('click',InputEngine.onMouseClick,true);
-                document.addEventListener('mousemove', InputEngine.onMouseMove,true);
+                document.getElementById('canvas').addEventListener('mousemove', InputEngine.onMouseMove,true);
                 document.addEventListener('keydown', InputEngine.onKeyDown,true);
                 document.addEventListener('keyup', InputEngine.onKeyUp,true);
         },
 	onMouseClick:function(event){
-		    console.log('click');
+		    console.log('clickx: '+event.clientX+" clicky: "+event.clientY);
                     InputEngine.mouse.x = event.clientX;
                     InputEngine.mouse.y = event.clientY;
                     var action = InputEngine.bindings[32];
@@ -46,8 +46,8 @@ InputEngine = {
 	},
         //-----------------------------
         onMouseMove: function (event) {
-                var posX = event.clientX;
-                var posY = event.clientY;
+                InputEngine.mouse.x = event.clientX;
+               	InputEngine.mouse.y = event.clientY;
 				
         },
 

@@ -49,12 +49,26 @@ GameEngine = {
 			//draft normalize of mouse coordinates for visual result
 			normal.x=InputEngine.mouse.x-InputEngine.mouse.x-1;
 			normal.y=InputEngine.mouse.y-InputEngine.mouse.y-1;
-			//normalize(gInputEngine.mouse.x,gInputEngine.mouse.y);
-			//console.log("normal:"+normal.x);		
 			//end of draft
 			fire(normal.x,normal.y);
 			InputEngine.actions['fire-primary']=false;
-		}		
+		};	
+		if(InputEngine.actions['look-up']) {
+			InputEngine.mouse.x=696;
+			InputEngine.mouse.y=233;
+		};
+		if(InputEngine.actions['look-down']) {
+			InputEngine.mouse.x=0;
+			InputEngine.mouse.y=0;
+		};
+		if(InputEngine.actions['look-right']) {
+			InputEngine.mouse.x=870;
+			InputEngine.mouse.y=100
+		};
+		if(InputEngine.actions['look-left']) {
+			InputEngine.mouse.x=511;
+			InputEngine.mouse.y=134;
+		};
 		//DRAFT end
 
 
