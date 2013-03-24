@@ -35,7 +35,7 @@ InputEngine = {
                 document.addEventListener('keyup', InputEngine.onKeyUp,true);
         },
 	onMouseClick:function(event){
-		    console.log('clickx: '+event.clientX+" clicky: "+event.clientY);
+		  //  console.log('clickx: '+event.clientX+" clicky: "+event.clientY);
                     InputEngine.mouse.x = event.clientX;
                     InputEngine.mouse.y = event.clientY;
                     var action = InputEngine.bindings[32];
