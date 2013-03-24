@@ -57,6 +57,23 @@ GameEngine = {
 
 	Entities: [],
 
+	init: function (canvas) {
+
+		this.canvas = canvas;
+		this.ctx = canvas.getContext('2d');
+	
+		PhysicsEngine.addContactListener({
+			
+			PostSolve: function(A,B) {
+				if( A.GetUserData().id == 'bullet' ) {
+					B.GetUserData().ent.kill();
+					A.GetUserData().ent.kill();
+				}
+			}
+
+		});
+	},
+
 	draw: function () {
 
 		var ctx = this.ctx;
@@ -110,7 +127,7 @@ GameEngine = {
 		var ent = this.Entities;
 		var dead = [];	
 
-		for (var i=0; i < ent.length; i++) {
+		for (var i=ent.length; i-- ; i) {
 		
 			if (ent[i]._killed === true) {
 				dead.push(i);
@@ -121,7 +138,12 @@ GameEngine = {
 		}
 
 		for (var i=0; i < dead.length; i++) {
+			
+			if (ent[dead[i]].physBody !== null) {
+				PhysicsEngine.removeBodyAsObj(ent[dead[i]].physBody);			
+			}
 			ent.splice(dead[i], 1);
+
 		}
 
 	},
@@ -133,12 +155,6 @@ GameEngine = {
 		return Entity;
 	},
 	
-	init: function (canvas) {
-
-		this.canvas = canvas;
-		this.ctx = canvas.getContext('2d');
-	
-	},
 
 	removeEntity: function(ent) {
 

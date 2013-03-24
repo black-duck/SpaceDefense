@@ -72,11 +72,9 @@ factory['Bullet'] = Class.extend({
 		}
 
 	},
+
 	kill: function () {
-		if (this.physBody !== null) {
-			PhysicsEngine.removeBodyAsObj(this.physBody);
-		}
-		GameEngine.removeEntity(this);
+		this._killed= true;
 	},
 
 	draw: function(ctx) {

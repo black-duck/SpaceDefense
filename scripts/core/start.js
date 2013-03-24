@@ -1,5 +1,6 @@
 DELAY = 1000.0/60.0;
-
+Logger = {};
+Logger.log = console.log;
 function loop() {
 		var start = new Date();
 		GameEngine.update();
@@ -17,9 +18,9 @@ function startGame() {
     	InputEngine.setup(canvas);
     	//DRAFT end
 
+		PhysicsEngine.init();//PhysicsEngine must be init before GameEngine
     	GameEngine.init(canvas);
     	Drawer.init(canvas);
-	PhysicsEngine.init();
 
     loop();
 }
