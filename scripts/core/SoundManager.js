@@ -119,11 +119,13 @@ soundManager = {
 			this.maudio.autoplay = false;
 			this.maudio.muted = false;
 			this.maudio.play();
+			
 			/* //Code in order to change the track of music. Not implemented yet.
 			 this.maudio.addEventListener('onended', function(){ //Change the song
 				
 			 });
 			 */
+			 
 			this.maudio.loop = true; //Replay the same song. Draft solution.
 		},
 		//Set the volume of the music
@@ -188,7 +190,42 @@ soundManager = {
 		this.sounds.soundUnmute();
 		this.music.musicUnmute();
 	},
-
 	
-	tempVar: 0
+	//Optional functions
+	
+	//Global volume up
+	globalVolumeUp: function(){
+		this.volumeUpMusic();
+		this.volumeUpEffects();
+	},
+	//Global volume down
+	globalVolumeUp: function(){
+		this.volumeUpMusic();
+		this.volumeUpEffects();
+	},
+	//Effects volume
+	volumeEffects: function(){
+		return Math.floor(this.effectsVolume * 100);
+	},
+	//Music volume
+	volumeMusic: function(){
+		return Math.floor(this.volumeMusic * 100);
+	},
+	//Global volume
+	globalVolume: function(){
+		var temp = Math.abs(this.effectsVolume - this.volumeMusic);
+		temp = Math.floor(temp * 100);	
+		
+		if( temp == 0) 
+			return Math.floor(this.volumeMusic * 100);
+		else
+			return  Math.floor((this.effectsVolume + this.volumeMusic) * 100 / 2);
+	},
+	//Supported audio type
+	soundType: function(){
+		return this.audioType;
+	},
+	
+	
+	tempVar: 0 //Draft variable
 };
