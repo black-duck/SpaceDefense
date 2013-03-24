@@ -12,7 +12,7 @@ InputEngine = {
 
 		
         //-----------------------------
-        setup: function (canvasId) {
+        setup: function (canvas) {
 		
 				
                 //move key bindings
@@ -29,17 +29,18 @@ InputEngine = {
 
 			
                 //event listeners
-                document.getElementById('canvas').addEventListener('mousedown',InputEngine.onMouseDown,true);
-                document.getElementById('canvas').addEventListener('mouseup',InputEngine.onMouseUp,true);
-                document.getElementById('canvas').addEventListener('mousemove', InputEngine.onMouseMove,true);
+                canvas.addEventListener('mousedown',InputEngine.onMouseDown,true);
+                canvas.addEventListener('mouseup',InputEngine.onMouseUp,true);
+                canvas.addEventListener('mousemove', InputEngine.onMouseMove,true);
                 document.addEventListener('keydown', InputEngine.onKeyDown,true);
                 document.addEventListener('keyup', InputEngine.onKeyUp,true);
         },
 	onMouseDown:function(event){
-		//  console.log('clickx: '+event.clientX+" clicky: "+event.clientY);
+		console.log('clickx: '+event.clientX+" clicky: "+event.clientY);
 		if (event.button==2){return false;}
-		InputEngine.mouse.x = event.clientX;
-                InputEngine.mouse.y = event.clientY;
+ 		var rect = document.getElementById('canvas').getBoundingClientRect();
+		InputEngine.mouse.x = event.clientX-rect.left;
+                InputEngine.mouse.y = event.clientY-rect.top;
                 var action = InputEngine.bindings[32];
                 if (action) {
                        InputEngine.actions[action] = true;
@@ -53,8 +54,9 @@ InputEngine = {
 	},
         //-----------------------------
         onMouseMove: function (event) {
-                InputEngine.mouse.x = event.clientX;
-               	InputEngine.mouse.y = event.clientY;
+               var rect = document.getElementById('canvas').getBoundingClientRect();
+		InputEngine.mouse.x = event.clientX-rect.left;
+                InputEngine.mouse.y = event.clientY-rect.top;
 				
         },
 
