@@ -5,6 +5,7 @@ factory['SimpleShip'] = Class.extend({
 
     physBody: null,
 	speed: 1,
+	_killed: false,
 
 	size: {
 		x: 100,
@@ -72,6 +73,10 @@ factory['SimpleShip'] = Class.extend({
 						this.pos.x, this.pos.y, 
 						this.size.x, this.size.y );
 
+	},
+
+	kill: function() {
+		this._killed= true;	
 	}
     
 
