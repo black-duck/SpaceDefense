@@ -1,4 +1,4 @@
-InputEngine = Class.extend({
+InputEngine = {
 
         bindings: {},
 
@@ -9,74 +9,64 @@ InputEngine = Class.extend({
                 y: 0
         },
 
+
+		
         //-----------------------------
-        setup: function (canvasID) {
+        setup: function (canvasId) {
+		
+				
                 //move key bindings
-                this.bind(87, 'look-up');
-                this.bind(65, 'look-left');
-                this.bind(83, 'look-down');
-                this.bind(68, 'look-right');
+                InputEngine.bind(87, 'look-up');
+                InputEngine.bind(65, 'look-left');
+                InputEngine.bind(83, 'look-down');
+                InputEngine.bind(68, 'look-right');
 
                 //fire key bindings
 //                gInputEngine.bind(81,'powerup-use');  //Q
 //                gInputEngine.bind(69,'fire-superWeapon');  //E
-                this.bind(32,'fire-primary');  //Space
+                InputEngine.bind(32,'fire-primary');  //Space
 //                gInputEngine.bind(16,'fire-missile');  //Shift   Ascii code=0 key code=16
 
-
+				document.getElementById(canvasId).getContext('2d');
                 //event listeners
-		document.getElementById('canvas').addEventListener('click',gInputEngine.onMouseClick);
-                document.getElementById('canvas').addEventListener('mousemove', gInputEngine.onMouseMove);
-                document.getElementById('canvas').addEventListener('keydown', gInputEngine.onKeyDown);
-                document.getElementById('canvas').addEventListener('keyup', gInputEngine.onKeyUp);
+                document.getElementById(canvasId).addEventListener('mousemove', InputEngine.onMouseMove,true);
+                document.getElementById(canvasId).addEventListener('keydown', InputEngine.onKeyDown,true);
+                document.getElementById(canvasId).addEventListener('keyup', InputEngine.onKeyUp,true);
         },
 
         //-----------------------------
-	onMouseClick:function(event){
-		console.log('click');
-                gInputEngine.mouse.x = event.clientX;
-                gInputEngine.mouse.y = event.clientY;
-		var action = gInputEngine.bindings[32];
-                if (action) {
-                        gInputEngine.actions[action] = true;
-                }
-
-},
-
-        //-----------------------------
         onMouseMove: function (event) {
-               	gInputEngine.mouse.x = event.clientX;
-                gInputEngine.mouse.y = event.clientY;
- 		var action = gInputEngine.bindings[event.keyID];
-                if (action) {
-                        gInputEngine.actions[action] = true;
-                }
+                var posX = event.clientX;
+                var posY = event.clientY;
+				
         },
 
         //-----------------------------
         onKeyDown: function (event) {
-		console.log('key down');
-                var action = gInputEngine.bindings[event.keyID];
-		if (action) {
-                        gInputEngine.actions[action] = true;
+				
+                var action = InputEngine.bindings[event.keyCode];
+				alert( event.keyCode );
+                if (action) {
+                        InputEngine.actions[action] = true;
+						
                 }
         },
 
    //-----------------------------
         onKeyUp: function (event) {
-		console.log('key up');
-                var action = gInputEngine.bindings[event.keyID];
+
+                var action = InputEngine.bindings[event.keyCode];
 
                 if (action) {
-                        gInputEngine.actions[action] = false;
+                        InputEngine.actions[action] = false;
+						
                 }
         },
 
         //-----------------------------
         bind: function (key, action) {
-                gInputEngine.bindings[key] = action;
+                InputEngine.bindings[key] = action;
+				
         }
 
-});
-
-var gInputEngine = new InputEngine();
+};
