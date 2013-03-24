@@ -29,10 +29,10 @@ InputEngine = {
 
 			
                 //event listeners
-                 document.getElementById('canvas').addEventListener('click',InputEngine.onMouseClick);
-                document.getElementById('canvas').addEventListener('mousemove', InputEngine.onMouseMove,true);
-                document.getElementById('canvas').addEventListener('keydown', InputEngine.onKeyDown,true);
-                document.getElementById('canvas').addEventListener('keyup', InputEngine.onKeyUp,true);
+                 document.getElementById('canvas').addEventListener('click',InputEngine.onMouseClick,true);
+                document.addEventListener('mousemove', InputEngine.onMouseMove,true);
+                document.addEventListener('keydown', InputEngine.onKeyDown,true);
+                document.addEventListener('keyup', InputEngine.onKeyUp,true);
         },
 	onMouseClick:function(event){
 		    console.log('click');
@@ -55,7 +55,7 @@ InputEngine = {
         onKeyDown: function (event) {
 				
                 var action = InputEngine.bindings[event.keyCode];
-				alert( event.keyCode );
+				console.log( event.keyCode );
                 if (action) {
                         InputEngine.actions[action] = true;
 						
