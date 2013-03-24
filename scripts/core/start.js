@@ -1,24 +1,22 @@
 DELAY = 1000.0/60.0;
 
 function loop() {
-    GameEngine.update();
+    	GameEngine.update();
 	PhysicsEngine.update();
-    GameEngine.draw();
-    window.setTimeout(loop, DELAY);
+    	GameEngine.draw();
+    	window.setTimeout(loop, DELAY);
 }
 
 function startGame() {
 	var canvas = document.getElementById('canvas');
-    //DRAFT start
-    Player0.turret = GameEngine.spawn(new factory['Turret']());
-    InputEngine.setup(canvas);
-    //DRAFT end
 
+    	//DRAFT start
+    	Player0.turret = GameEngine.spawn(new factory['Turret']());
+    	InputEngine.setup(canvas);
+    	//DRAFT end
 
-   
-    
-    GameEngine.init(canvas);
-    Drawer.init(canvas);
+    	GameEngine.init(canvas);
+    	Drawer.init(canvas);
 	PhysicsEngine.init();
 
     loop();

@@ -3,7 +3,12 @@ function SpawnShip(entry, exit) {
 
     GameEngine.spawn(new factory['SimpleShip'](entry.x, entry.y, exit.x, exit.y));
 }
-
+//Draft testing
+function rotate(rot_x,rot_y)
+{
+	
+}
+//End of Draft testing
 //DRAFT - to be modified area start
 Player0 = {
 	turret: null
@@ -83,20 +88,25 @@ GameEngine = {
 			Player0.turret._fireTrigger = false;	
 		}
 		if(InputEngine.actions['look-up']) {
-			InputEngine.mouse.x=696;
-			InputEngine.mouse.y=233;
-		};
-		if(InputEngine.actions['look-down']) {
-			InputEngine.mouse.x=0;
-			InputEngine.mouse.y=0;
+			if (InputEngine.mouse.x<420){
+				InputEngine.mouse.x+=20;
+				InputEngine.mouse.y=-1;}
+			else if (InputEngine.mouse.x>420){
+				InputEngine.mouse.x-=20;
+				InputEngine.mouse.y=-1;}
+			
 		};
 		if(InputEngine.actions['look-right']) {
-			InputEngine.mouse.x=870;
-			InputEngine.mouse.y=100
+			if(InputEngine.mouse.x<880){
+				InputEngine.mouse.x+=20;
+				InputEngine.mouse.y=100;
+			}
 		};
 		if(InputEngine.actions['look-left']) {
-			InputEngine.mouse.x=511;
-			InputEngine.mouse.y=134;
+			if (InputEngine.mouse.x>-20){
+				InputEngine.mouse.x-=20;
+				InputEngine.mouse.y=134;
+			}
 		};
 		//DRAFT end
 
