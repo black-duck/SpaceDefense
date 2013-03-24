@@ -1,12 +1,31 @@
 Loader = {
 	FILE_EXT: {
 		sound: /(.mp3|.ogg)$/,
-		image: /(.jpg|.jpeg|.png)/
+		image: /(.jpg|.jpeg|.png)$/,
+		json: /(.json)$/
 	},
 	images: {},
 	sounds: {},
 	objects: {},
 	
+	_loadJson: function(src) {
+		var objectCache = Loader.objects;
+		
+		if (objectCache[src]) {
+			return objectCache[src];
+		}
+
+		var obj;
+
+		xhr = new XMLHttpRequest();
+		xhr.open("GET", src, true);
+		xhr.onload = function() {
+			objectCache[src] = JSON.parse(this.responseText);
+		};
+		xhr.send();
+		return objectCache[src];
+	},
+
 	_loadImg: function(src) { 
 		var imageCache = Loader.images;
 		
@@ -52,6 +71,9 @@ Loader = {
 		else if (ext.sounds.test()){
 			this._loadSound(src);
 		}
+		else if (ext.json.test(src)) {
+			return this._loadJson(src);
+		}
 	},
 
 	load: function(src) {
@@ -61,10 +83,12 @@ Loader = {
 		if (ext.image.test(src)) {
 			return this._loadImg(src);
 		}
-		else if (ext.sound.test(src)){
+		else if (ext.sound.test(src)) {
 			return this._loadSound(src);
+		}
+		else if (ext.json.test(src)) {
+			return this._loadJson(src);
 		}
 
 	}
 }
-	
