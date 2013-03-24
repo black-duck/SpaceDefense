@@ -30,9 +30,9 @@ InputEngine = {
 			
                 //event listeners
                  document.getElementById('canvas').addEventListener('click',InputEngine.onMouseClick);
-                document.getElementById(canvasId).addEventListener('mousemove', InputEngine.onMouseMove,true);
-                document.getElementById(canvasId).addEventListener('keydown', InputEngine.onKeyDown,true);
-                document.getElementById(canvasId).addEventListener('keyup', InputEngine.onKeyUp,true);
+                document.getElementById('canvas').addEventListener('mousemove', InputEngine.onMouseMove,true);
+                document.getElementById('canvas').addEventListener('keydown', InputEngine.onKeyDown,true);
+                document.getElementById('canvas').addEventListener('keyup', InputEngine.onKeyUp,true);
         },
 	onMouseClick:function(event){
 		    console.log('click');

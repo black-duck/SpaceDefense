@@ -8,7 +8,7 @@ function loop() {
 }
 
 function startGame() {
-
+	var canvas = document.getElementById('canvas');
     //DRAFT start
     GameEngine.spawn(new factory['SimpleShip']());
     GameEngine.spawn(new factory['Turret']());
@@ -16,7 +16,7 @@ function startGame() {
     //DRAFT end
 
 
-    var canvas = document.getElementById('canvas');
+   
     
     GameEngine.init(canvas);
     Drawer.init(canvas);
