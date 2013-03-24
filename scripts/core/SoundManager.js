@@ -35,14 +35,12 @@ SoundManager = {
 		}
 	},
 	
-	
-	//Draft--------------------------------------
 	musicArray: new Array(),
 	
 	maudio: new Audio(),
 	
 	counter: 0,
-	
+	//Load the playlist
 	loadMusic: function(array){
 		this.musicArray = array;
 		this.maudio = Loader.load(this.musicArray[this.counter] + '.' + this.audioType);
@@ -54,7 +52,7 @@ SoundManager = {
 			SoundManager.nextTrack();
 		});
 	},
-	
+	//Next track please!
 	nextTrack: function(){
 		this.counter = (this.counter + 1) % this.musicArray.length;
 		this.maudio = Loader.load(this.musicArray[this.counter] + '.' + this.audioType);
@@ -66,7 +64,7 @@ SoundManager = {
 		});
 		this.playMusic()
 	},
-	
+	//Play the music
 	playMusic: function(){
 		this.maudio.play();	
 	},
