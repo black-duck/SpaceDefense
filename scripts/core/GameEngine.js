@@ -3,7 +3,7 @@
 function fire(x,y) {
 
 	GameEngine.spawn( new factory['Bullet'](GameEngine.canvas.width/2,GameEngine.canvas.height,x, y));
-
+	SoundManager.playSound('sounds/LaserBeam0');
 }
 
 assets = { 
