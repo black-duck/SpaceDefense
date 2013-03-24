@@ -67,7 +67,7 @@ GameEngine = {
 		};
 		//DRAFT end
 
-
+		
 		var ent = this.Entities;
 		
 		for ( i in ent ) {

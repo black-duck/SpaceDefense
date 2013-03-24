@@ -30,8 +30,11 @@ factory['Turret'] = Class.extend({
 	img: assets['turret'],
 
     update: function() {
-        // TODO: This needs work. 
-        this.angle = (InputEngine.mouse.x - canvas.width +110) / this.flexibility;
+		
+		
+		this.dir.x = InputEngine.mouse.x - this.pos.x;
+		this.dir.y = InputEngine.mouse.y - this.pos.y;
+		
 		//Must use dir insted
 		if (this._fireTrigger && this._fireCool == 0) {
 			this.__fire();
@@ -46,9 +49,9 @@ factory['Turret'] = Class.extend({
     },
 
 	draw: function(ctx) {
-		Drawer.image( this.img, this.pos.x, this.pos.y, this.angle, 
+		var rad = -Math.atan(this.dir.x/this.dir.y);
+		Drawer.image( this.img, this.pos.x, this.pos.y, rad, 
 						this.size.x, this.size.y);
-		
 	},	
 
 	//DRAFT-part START
