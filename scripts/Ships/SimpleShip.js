@@ -8,7 +8,7 @@ factory['SimpleShip'] = Class.extend({
 	_killed: false,
 
 	size: {
-		x: 100,
+		x: 80,
 		y: 100
 	},
 	
