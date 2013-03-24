@@ -1,9 +1,8 @@
 
 //DRAFT - to be modified area start
-function fire(x,y) {
+Player0 = {
+	turret: null
 
-	GameEngine.spawn( new factory['Bullet'](GameEngine.canvas.width/2,GameEngine.canvas.height,x, y));
-	SoundManager.playSound('sounds/LaserBeam0');
 }
 
 assets = { 
@@ -45,13 +44,11 @@ GameEngine = {
 		
 		//DRAFT start
 		if(InputEngine.actions['fire-primary']) {
-			var normal={};
-			//draft normalize of mouse coordinates for visual result
-			normal.x=InputEngine.mouse.x-InputEngine.mouse.x-1;
-			normal.y=InputEngine.mouse.y-InputEngine.mouse.y-1;
-			//end of draft
-			fire(normal.x,normal.y);
-		};	
+			Player0.turret._fireTrigger = true;	
+		}
+		else {
+			Player0.turret._fireTrigger = false;	
+		}
 		if(InputEngine.actions['look-up']) {
 			InputEngine.mouse.x=696;
 			InputEngine.mouse.y=233;
@@ -79,11 +76,11 @@ GameEngine = {
 
 	},
 
-	//spawn must use String of Classname as param
+	//DRAFT spawn must use String of Classname as param
 	spawn: function (Entity) {
 		
 		this.Entities.push(Entity); 
-
+		return Entity;
 	},
 	
 	init: function (canvas) {

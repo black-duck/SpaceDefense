@@ -11,7 +11,7 @@ function startGame() {
 	var canvas = document.getElementById('canvas');
     //DRAFT start
     GameEngine.spawn(new factory['SimpleShip']());
-    GameEngine.spawn(new factory['Turret']());
+    Player0.turret = GameEngine.spawn(new factory['Turret']());
     InputEngine.setup(canvas);
     //DRAFT end
 
