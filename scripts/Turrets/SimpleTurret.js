@@ -7,7 +7,7 @@ factory['Turret'] = Class.extend({
 	
 	pos: {
 		x: 420,
-		y: 600
+		y: 560
 	},
 
 	dir: {
