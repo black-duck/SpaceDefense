@@ -18,7 +18,6 @@ InputEngine = {
                 //move key bindings
                 InputEngine.bind(87, 'look-up');
                 InputEngine.bind(65, 'look-left');
-                InputEngine.bind(83, 'look-down');
                 InputEngine.bind(68, 'look-right');
 
                 //fire key bindings
@@ -30,27 +29,30 @@ InputEngine = {
 			
                 //event listeners
                 canvas.addEventListener('mousedown',InputEngine.onMouseDown,true);
+		canvas.addEventListener('mouseout',InputEngine.onMouseUp,true);
                 canvas.addEventListener('mouseup',InputEngine.onMouseUp,true);
                 canvas.addEventListener('mousemove', InputEngine.onMouseMove,true);
                 document.addEventListener('keydown', InputEngine.onKeyDown,true);
                 document.addEventListener('keyup', InputEngine.onKeyUp,true);
         },
 	onMouseDown:function(event){
-		console.log('clickx: '+event.clientX+" clicky: "+event.clientY);
-		if (event.button==2){return false;}
+ 		var action = InputEngine.bindings[32];
+		if (event.button==2){
+			InputEngine.actions[action] = false;
+			return false;
+		}
  		var rect = document.getElementById('canvas').getBoundingClientRect();
 		InputEngine.mouse.x = event.clientX-rect.left;
                 InputEngine.mouse.y = event.clientY-rect.top;
-                var action = InputEngine.bindings[32];
                 if (action) {
                        InputEngine.actions[action] = true;
                 }
 	},
 	onMouseUp:function(event){
-	var action = InputEngine.bindings[32];
-                    if (action) {
-                          InputEngine.actions[action] = false;
-                    }
+		var action = InputEngine.bindings[32];
+                if (action) {
+                      InputEngine.actions[action] = false;
+                }
 	},
         //-----------------------------
         onMouseMove: function (event) {
