@@ -10,6 +10,7 @@ SoundManager = {
 	
 	audioType: 'ogg',
 	
+	audioGuns: new Array(),
 	//Define the type of audio supported.
 	init: function(){
 	
@@ -18,9 +19,30 @@ SoundManager = {
 		if (audio.canPlayType('audio/ogg; codecs="vorbis"'))
 			this.audioType = 'ogg';
 		else
-			this.audioType = 'mp3';	
+			this.audioType = 'mp3';
 	},
 	 
+	loadGuns: function(srcArray){
+		for(var i = 0; i < srcArray.length; i++){
+			this.audioGuns[i] = Loader.load(srcArray[i] + '.' + this.audioType);
+			this.audioGuns[i].autoplay = false;			
+		}
+		
+	},
+	
+	playGun: function(src){
+		for(var i = 0; i < this.audioGuns.length; i++){
+			var str = this.audioGuns[i].src;
+			
+			if(str.search(src) != -1){
+				var audio = this.audioGuns[i];
+				audio.autoplay = false;
+				audio.muted = this.globalMute;
+				audio.volume = this.effectsVolume;
+				audio.play();
+			}
+		}
+	},
 	//Play the sound effect
 	playSound: function(src){
 		try{
@@ -146,3 +168,5 @@ SoundManager = {
 	
 	
 }
+
+SoundManager.init();
