@@ -41,7 +41,7 @@ factory['Bullet'] = Class.extend({
 	                        	 userData: { id: 'bullet',
 	                            	         ent: this 
 	                                     },
-	             
+	            				 angle: -Math.atan(this.dir.x/this.dir.y), 
 	                             halfWidth: this.size.y/2,
 	                             halfHeight: this.size.x/2
 	 
@@ -80,9 +80,9 @@ factory['Bullet'] = Class.extend({
 	},
 
 	draw: function(ctx) {
-		
-		ctx.drawImage( Loader.load(this.img), 
-						this.pos.x, this.pos.y, 
+		var rad = this.physBody.GetAngle();	
+		Drawer.image( this.img, 
+						this.pos.x, this.pos.y, rad, 
 						this.size.x, this.size.y );
 
 	}
