@@ -23,11 +23,23 @@
 	</script>
     <style>
         body {
-            background-color: black; 
+            background-color: #090909;
             color: white;
+            font-family: "Trebuchet MS", Verdana, sans-serif;
+        }
+
+        #Space {
+            background-color: black;
+            box-shadow: 0 0 5px #333;
+            display: block;
+            width: 630px;
+            font-size: 90%;
+            text-shadow: 1px 1px 0 black;
+            text-align: center;
         }
 
         .MenuButton {
+            padding-top: 10px;
             font-size: 22px;
             cursor: pointer;
         }
@@ -42,17 +54,27 @@
             width: 800px;
             height: 600px;
             margin: 0px auto;
-            border: 1px solid white;
+            border: 1px solid #678; 
+        }
+
+        h2 {
+            font-weight: bold;
+            text-align: center;
+            padding: 5px 0;
+            font-size: 300%;
+            text-transform: uppercase;
         }
 
     </style>
 </head>
 
 <body>
+    <br /><br /><br />
+    <br /><br /><br />
     <div id="Space">
     <div id="SplashScreen">
-    <h1>Space Defence</h1>
-    <div id="StartButton" class="MenuButton">Start</div>
+    <h2>Space Defence</h2>
+    <div id="StartButton" class="MenuButton">Play!</div>
 	<div id="StartMusic" class="MenuButton">Music OFF</div>
     </div>
 	<canvas id='canvas' width="800px" height="600px"></canvas>
