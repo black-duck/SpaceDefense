@@ -2,13 +2,13 @@
 factory['Bullet'] = Class.extend({ 
 
 	physBody: null,
-	speed: 3500,
+	speed: 800,
 	lifetime: 5000,
 	_killed: false,
 
 	size: {
 		x: 5,
-		y: 5
+		y: 10
 	},
 	
 	pos: {
@@ -50,7 +50,6 @@ factory['Bullet'] = Class.extend({
 		var vec = new Vec2(this.dir.x, this.dir.y);
 		vec.Normalize();
 		vec.Multiply(this.speed);
-		console.log(this.physBody.GetLinearVelocity());
 		this.physBody.SetLinearVelocity(vec);
 	
 	},

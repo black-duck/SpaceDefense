@@ -59,7 +59,7 @@ PhysicsEngine = {
     	this.world.Step(
     				PHYSICS_LOOP_HZ, //frame-rate
     				10, //velocity iterations
-    				10); //position iterations
+    				7); //position iterations
     
 		//this.world.ClearForces();
     	return (Date.now() - start);
