@@ -1,6 +1,6 @@
 SoundManager = {
 	//General variables
-	effectsVolume: 1,
+	effectsVolume: 0.15,
 	
 	musicVolume: 1,
 	
