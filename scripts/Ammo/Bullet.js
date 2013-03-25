@@ -2,7 +2,7 @@
 factory['Bullet'] = Class.extend({ 
 
 	physBody: null,
-	speed: 8,
+	speed: 5000,
 	lifetime: 5000,
 	_killed: false,
 

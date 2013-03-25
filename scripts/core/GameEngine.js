@@ -30,7 +30,7 @@ GameEngine = {
 	
 		PhysicsEngine.addContactListener({
 			
-			PostSolve: function(A,B) {
+			BeginContact: function(A,B) {
 				if( A.GetUserData().id == 'bullet' ) {
 					B.GetUserData().ent.kill();
 					A.GetUserData().ent.kill();

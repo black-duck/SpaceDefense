@@ -1,4 +1,4 @@
-PHYSICS_LOOP_HZ = 1000/60.0;
+PHYSICS_LOOP_HZ = 1/60.0;
 
 Vec2 = Box2D.Common.Math.b2Vec2;
 BodyDef =  Box2D.Dynamics.b2BodyDef;
@@ -57,7 +57,7 @@ PhysicsEngine = {
     				10, //velocity iterations
     				10); //position iterations
     
-		this.world.ClearForces();
+		//this.world.ClearForces();
     	return (Date.now() - start);
 	},
 

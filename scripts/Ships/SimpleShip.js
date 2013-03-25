@@ -4,11 +4,11 @@ factory['SimpleShip'] = Class.extend({
 
 
     physBody: null,
-	speed: 1,
+	speed: 80,
 	_killed: false,
 
 	size: {
-		x: 100,
+		x: 80,
 		y: 100
 	},
 	
@@ -40,8 +40,8 @@ factory['SimpleShip'] = Class.extend({
 	                            	         ent: this 
 	                                     },
 	             
-	                             halfWidth: this.size.y/2,
-	                             halfHeight: this.size.x/2
+	                             halfWidth: this.size.x/2,
+	                             halfHeight: this.size.y/2
 	 
 	                        });     
 		
