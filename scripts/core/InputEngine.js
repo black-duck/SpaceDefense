@@ -1,3 +1,11 @@
+Scale={
+  x:1.0,
+  y:1.0,
+  setScale:function(ScaleX,ScaleY){
+    Scale.x=ScaleX;
+    Scale.y=ScaleY;
+  }
+};
 InputEngine = {
 
         bindings: {},
@@ -42,9 +50,9 @@ InputEngine = {
 			return false;
 		}
  		var rect = document.getElementById('canvas').getBoundingClientRect();
-		InputEngine.mouse.x = event.clientX-rect.left;
-                InputEngine.mouse.y = event.clientY-rect.top;
-                if (action) {
+		InputEngine.mouse.x = (event.clientX-rect.left)*Scale.x;
+                InputEngine.mouse.y = (event.clientY-rect.top)*Scale.y;
+		if (action) {
                        InputEngine.actions[action] = true;
                 }
 	},
@@ -58,7 +66,7 @@ InputEngine = {
         onMouseMove: function (event) {
                var rect = document.getElementById('canvas').getBoundingClientRect();
 		InputEngine.mouse.x = event.clientX-rect.left;
-                InputEngine.mouse.y = event.clientY-rect.top;		
+                InputEngine.mouse.y = event.clientY-rect.top;	
         },
 
         //-----------------------------
