@@ -39,7 +39,7 @@ factory['SimpleShip'] = Class.extend({
 	                        	 userData: { id: 'SimpleShip',
 	                            	         ent: this 
 	                                     },
-	             
+	             				 angle: -Math.atan(this.dir.x/this.dir.y),
 	                             halfWidth: this.size.x/2,
 	                             halfHeight: this.size.y/2
 	 
@@ -57,6 +57,7 @@ factory['SimpleShip'] = Class.extend({
         var vec = new Vec2(this.dir.x, this.dir.y);
 		vec.Normalize();
 		vec.Multiply(this.speed);
+		this.physBody.SetAngle(-Math.atan(this.dir.x/this.dir.y));
 		this.physBody.SetLinearVelocity(vec);
 		
 		if (this.physBody != null) {
@@ -68,10 +69,10 @@ factory['SimpleShip'] = Class.extend({
 	},
     
 	draw: function(ctx) {
-		
-		ctx.drawImage( Loader.load(this.img), 
-						this.pos.x, this.pos.y, 
-						this.size.x, this.size.y );
+		var rad = this.physBody.GetAngle();		
+		Drawer.image( this.img, 
+						this.pos.x, this.pos.y, rad, 
+						this.size.x, this.size.y);
 
 	},
 
