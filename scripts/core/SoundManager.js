@@ -91,9 +91,9 @@ SoundManager = {
 		this.maudio.autoplay = false;
 		this.maudio.muted = this.globalMute;
 		this.maudio.volume = this.musicVolume;
-		this.maudio.addEventListener("onended",function(){
-			SoundManager.nextTrack();
-		});
+		//this.maudio.addEventListener("onended",function(){
+		//	SoundManager.nextTrack();
+		//});
 		this.playMusic()
 	},
 	//Play the music
