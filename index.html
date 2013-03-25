@@ -4,11 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 
 	<script type="text/javascript" src="scripts/core/Loader.js"></script> 
-	<script type="text/javascript" src="scripts/core/GameEngine.js"></script> 
-	<script type="text/javascript" src="scripts/core/Gameplay.js"></script>
+	<script type="text/javascript" src="scripts/core/GameEngine.js"></script>
 	<script type="text/javascript" src="scripts/core/Class.js"></script>  
 	<script type="text/javascript" src="scripts/core/InputEngine.js"></script>
-	<script type="text/javascript" src="scripts/core/SoundManager.js"></script>
 	<script type="text/javascript" src="scripts/core/Drawer.js"></script>
 	<script type="text/javascript" src="scripts/core/box2D.js"></script>
 	<script type="text/javascript" src="scripts/core/PhysicsEngine.js"></script>
@@ -17,29 +15,17 @@
 	<script type="text/javascript" src="scripts/Ammo/Bullet.js"></script>  
     <script type="text/javascript" src="scripts/core/start.js"></script> 
 	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-	<script type="text/javascript">
-		SoundManager.loadMusic(['sounds/Fifty_Percent_-_Bright_Air']);
-		SoundManager.playMusic();
-	</script>
+	<!--//effect scripts-->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+	<!--//-->
     <style>
         body {
-            background-color: #090909;
+            background-color: black; 
             color: white;
-            font-family: "Trebuchet MS", Verdana, sans-serif;
-        }
-
-        #Space {
-            background-color: black;
-            box-shadow: 0 0 5px #333;
-            display: block;
-            width: 630px;
-            font-size: 90%;
-            text-shadow: 1px 1px 0 black;
-            text-align: center;
         }
 
         .MenuButton {
-            padding-top: 10px;
             font-size: 22px;
             cursor: pointer;
         }
@@ -54,27 +40,24 @@
             width: 800px;
             height: 600px;
             margin: 0px auto;
-            border: 1px solid #678; 
-        }
-
-        h2 {
-            font-weight: bold;
-            text-align: center;
-            padding: 5px 0;
-            font-size: 300%;
-            text-transform: uppercase;
-        }
-
+            border: 1px solid white;
+        
+	}
+	#StartButton{
+	  width: 40px;
+	  height: 30px;
+	  margin-left: 380px;
+	  margin-right: 380px;
+	}
     </style>
 </head>
 
 <body>
     <div id="Space">
     <div id="SplashScreen">
-    <h2>Space Defence</h2>
-    <div id="StartButton" class="MenuButton">Play!</div>
-	<div id="StartMusic" class="MenuButton">Music OFF</div>
-	</div>
+    <h1>Space Defence</h1>
+    <div id="StartButton" class="MenuButton">Start</div>
+    </div>
 	<canvas id='canvas' width="800px" height="600px"></canvas>
     </div> 
 
@@ -84,12 +67,11 @@
         $("#canvas").show();
         startGame();
     });
-	
-	$("#StartMusic").click(function () {
-        SoundManager.maudio.pause();
+    $("#StartButton").mouseenter(function () {
+     // $(this).css("background-color","gray");
+      $(this).effect("shake", { times:3 }, 500);
     });
-	
 	</script>
-	
+
 </body>
 </html>
