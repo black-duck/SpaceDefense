@@ -32,8 +32,7 @@ GameEngine = {
 			
 			BeginContact: function(A,B) {
 				if( A.GetUserData().id == 'bullet' ) {
-					B.GetUserData().ent.kill();
-					A.GetUserData().ent.kill();
+					A.GetUserData().ent.onImpact(B.GetUserData().ent);
 				}
 			}
 

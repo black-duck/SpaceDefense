@@ -2,10 +2,12 @@
 
 factory['SimpleShip'] = Class.extend({ 
 
+	_killed: false,
 
     physBody: null,
+
 	speed: 60,
-	_killed: false,
+	hitpoints: 10,
 
 	size: {
 		x: 38,
@@ -64,6 +66,10 @@ factory['SimpleShip'] = Class.extend({
 			var pPos = this.physBody.GetPosition();
 			this.pos.x = pPos.x;
 			this.pos.y = pPos.y;
+		}
+
+		if (this.hitpoints <= 0) {
+			this.kill();
 		}
 
 	},

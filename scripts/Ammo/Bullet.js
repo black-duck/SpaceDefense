@@ -1,10 +1,13 @@
 
 factory['Bullet'] = Class.extend({ 
 
+	_killed: false,
+
 	physBody: null,
+	
 	speed: 800,
 	lifetime: 5000,
-	_killed: false,
+	damage: 2,
 
 	size: {
 		x: 5,
@@ -85,6 +88,11 @@ factory['Bullet'] = Class.extend({
 						this.pos.x, this.pos.y, rad, 
 						this.size.x, this.size.y );
 
+	},
+
+	onImpact: function(otherEnt) {
+		otherEnt.hitpoints -= this.damage;		
+		this.kill();
 	}
 
 	
