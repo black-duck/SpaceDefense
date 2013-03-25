@@ -80,7 +80,6 @@ SoundManager = {
 		this.maudio.muted = this.globalMute;
 		this.maudio.volume = this.musicVolume;
 		this.maudio.addEventListener("ended",function(){
-			console.log("Error");
 			SoundManager.nextTrack();
 		});
 	},
@@ -91,9 +90,9 @@ SoundManager = {
 		this.maudio.autoplay = false;
 		this.maudio.muted = this.globalMute;
 		this.maudio.volume = this.musicVolume;
-		//this.maudio.addEventListener("onended",function(){
-		//	SoundManager.nextTrack();
-		//});
+		this.maudio.addEventListener("ended",function(){
+			SoundManager.nextTrack();
+		});
 		this.playMusic()
 	},
 	//Play the music
