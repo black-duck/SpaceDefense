@@ -1,13 +1,13 @@
 factory['Turret'] = Class.extend({ 
 
 	size: {
-		x: 80,
-		y: 80
+		x: 30,
+		y: 40
 	},
 	
 	pos: {
 		x: 420,
-		y: 560
+		y: 550
 	},
 
 	dir: {

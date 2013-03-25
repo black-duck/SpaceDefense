@@ -18,7 +18,11 @@ PhysicsEngine = {
 	world: null,
   
 	init: function () {
-	
+
+		//DRAFT - better solution needed
+		Box2D.Common.b2Settings.b2_maxTranslation = 20.0;
+		Box2D.Common.b2Settings.b2_maxTranslationSquared = 20.0 * 20.0;
+
 		this.world = new World(
     		new Vec2(0, 0), //gravity    						
     		false ); //don't allow sleep
@@ -85,7 +89,8 @@ PhysicsEngine = {
 		if (entityDef.userData) bodyDef.userData = entityDef.userData;
     	if (entityDef.angle) bodyDef.angle = entityDef.angle;
     	if (entityDef.damping) bodyDef.linearDamping = entityDef.damping;
-    	
+    	if (entityDef.bullet) bodyDef.bullet = true;	
+
 		var body = this.registerBody(bodyDef);
 		var fixtureDefinition = new FixtureDef;
 
