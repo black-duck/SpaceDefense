@@ -2,7 +2,10 @@ Drawer = {
 
 	canvas: null ,
 	ctx: null,
-	imgToDraw: [],
+
+	_imgToAtlas: {},
+	_atlas: {},
+	
 	xScale: 1,
 	yScale: 1,
 	xScaleHalf: 0.5,
@@ -13,27 +16,103 @@ Drawer = {
 		this.ctx = canvas.getContext('2d');
 
 	},	
+	useAtlas: function (altasSrc) {
 
+		//NOT trimmed, NOT rotated atlases
+		var json = Loader.load(atlasSrc + ".json");
+		Loader.preload(json.meta.image);
+		this._atlas[atlasSrc] = json;
+		
+		var frames = json.frames;
+		for (var i; i < frames.length; i++) {
+			this._imgToAtlas[frames[i].filename] = { img: json.meta.image,
+													 frame: frames[i].frame };
+
+		}
+		
+
+	},
 	setScale: function (x, y) {
 		this.xScale = x;
 		this.yScale = y;
 		this.xScaleHalf = x/2;
 		this.yScaleHalf = x/2;
 	},
+	__imageAltas3: function ( imgSrc, x, y) {
+
+		var xs = this.xScale,
+			ys = this.yScale,
+			xsh = this.xScaleHalf,
+			ysh = this.yScaleHalf;
+		
+		var atlas, img, frame;
+		var ctx = this.ctx;
+
+		atlas = this._imgToAtlas[imgSrc];
+		img = Loader.load(atlas.img);
+		f = atlas.frame;
+
+		ctx.drawImage(img, f.x, f.y, 
+							f.w, f.h, 
+							x * xs, y * ys, 
+							f.w * xsh, f.h * ysh);
+	},
+	__imageAtlas6: function (imgSrc, x, y, ang, w, h) {
+			
+		var xs = this.xScale,
+			ys = this.yScale,
+			xsh = this.xScaleHalf,
+			ysh = this.yScaleHalf;
+
+		var atlas, img, frame;
+		var ctx = this.ctx;
+
+		atlas = this._imgToAtlas[imgSrc];
+		img = Loader.load(atlas.img);
+		f = atlas.frame;
+
+		ctx.save();
+		ctx.translate(x * xs, y * ys);
+		ctx.rotate(canvRot);
+		ctx.drawImage( img, f.x, f.y,
+							f.w, f.h,
+							-(w * xsh), -(h * ysh), 
+							w  * xs, h * ys);
+		ctx.restore();
+
+	},
 	//overloaded method
 	image: function (imgSrc, canvX , canvY) {
 
+		if (this._imgToAtlas[imgSrc]) {
+			
+			//Work TODO
+			if (arguments.length == 3) {
+				this.__imageAtlas3(imgSrc, canvX, canvY);
+			}
+			else if (arguments.length == 6) {
+				//better way to do it
+				this.__imageAtlas6(imgSrc, canvX, canvY, 
+						arguments[3], arguments[4], arguments[5]);
+			}
+
+			return ;
+
+		}
+
+
 		var canvRot, canvWidth, canvHeight, imgX, imgY, imgWidth, imgHeight;
 		var img,ctx;
-
+			
+		ctx = this.ctx;
+		img = Loader.load(imgSrc);
+		
 		var xScale = this.xScale,
 			yScale = this.yScale,
 			xScaleHalf = this.xScaleHalf,
 			yScaleHalf = this.yScaleHalf;
 
-		ctx = this.ctx;
-		img = Loader.load(imgSrc);
-		
+
 		if( arguments.length == 3) {
 			ctx.drawImage(img, xScale * canvX, xScale * canvY);
 		}
@@ -70,36 +149,6 @@ Drawer = {
 								canvHeight * yScale);
 			ctx.restore();
 		}
-		else if ( arguments.length == 9 ) {
-			imgX = arguments[1];
-			imgY = arguments[2];
-			imgWidth =  arguments[3];
-			imgHeight = arguments[4];
-			canvX = arguments[5];
-			canvY = arguments[6];
-			canvWidth = arguments[7];
-			canvHeight = arguments[8];
-
-			//not implemented yet
-		}
-		else if ( arguments.lenght == 10 ) {
-			imgX = arguments[1];
-			imgY = arguments[2];
-			imgWidth =  arguments[3];
-			imgHeight = arguments[4];
-			canvX = arguments[5];
-			canvY = arguments[6];
-			canvRot = arguments[7];
-			canvWidth = arguments[8];
-			canvHeight = arguments[9];
-			
-			//not implemented yet
-		}
-		
-
-
-
-
 	}
 
 }
