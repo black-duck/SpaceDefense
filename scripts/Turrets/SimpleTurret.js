@@ -42,7 +42,7 @@ factory['Turret'] = Class.extend({
     },
 
 	draw: function(ctx) {
-		var rad = -Math.atan(this.dir.x/this.dir.y);
+		var rad = Geometry.vecToRad(this.dir.x, this.dir.y);
 		Drawer.image( this.img, this.pos.x, this.pos.y, rad, 
 						this.size.x, this.size.y);
 	},	

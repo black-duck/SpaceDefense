@@ -44,7 +44,7 @@ factory['Bullet'] = Class.extend({
 	                        	 userData: { id: 'bullet',
 	                            	         ent: this 
 	                                     },
-	            				 angle: -Math.atan(this.dir.x/this.dir.y), 
+	            				 angle: Geometry.vecToRad(this.dir.x, this.dir.y), 
 	                             halfWidth: this.size.y/2,
 	                             halfHeight: this.size.x/2
 	 
