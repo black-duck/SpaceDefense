@@ -51,10 +51,11 @@ InputEngine = {
 		}
  		var rect = document.getElementById('canvas').getBoundingClientRect();
 		InputEngine.mouse.x = (event.clientX-rect.left)*Scale.x;
-                InputEngine.mouse.y = (event.clientY-rect.top)*Scale.y;
+        InputEngine.mouse.y = (event.clientY-rect.top)*Scale.y;
+		
 		if (action) {
-                       InputEngine.actions[action] = true;
-                }
+        	InputEngine.actions[action] = true;
+        }
 	},
 	onMouseUp:function(event){
 		var action = InputEngine.bindings[32];
@@ -64,10 +65,11 @@ InputEngine = {
 	},
         //-----------------------------
         onMouseMove: function (event) {
-               var rect = document.getElementById('canvas').getBoundingClientRect();
-		InputEngine.mouse.x = event.clientX-rect.left;
-                InputEngine.mouse.y = event.clientY-rect.top;	
+        	var rect = document.getElementById('canvas').getBoundingClientRect();
+			InputEngine.mouse.x = (event.clientX-rect.left) * Scale.x;
+            InputEngine.mouse.y = (event.clientY-rect.top) * Scale.y;	
         },
+
 
         //-----------------------------
         onKeyDown: function (event) {
