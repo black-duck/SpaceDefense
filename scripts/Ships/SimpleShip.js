@@ -24,7 +24,7 @@ factory['SimpleShip'] = Class.extend({
 		y: 0
 	},
 
-	img: assets['ship'],
+	img: 'ship.png',
 
     init: function(sX, sY, eX, eY) {
 

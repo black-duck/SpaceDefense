@@ -16,20 +16,26 @@ Drawer = {
 		this.ctx = canvas.getContext('2d');
 
 	},	
-	useAtlas: function (altasSrc) {
 
+	useAtlas: function (atlasSrc) {
+		var atlas = this._atlas;
+		var imgToAtlas = this._imgToAtlas;
+		
 		//NOT trimmed, NOT rotated atlases
-		var json = Loader.load(atlasSrc + ".json");
-		Loader.preload(json.meta.image);
-		this._atlas[atlasSrc] = json;
+		Loader.load(atlasSrc + ".json", function (json) {
+			
+			Loader.preload(json.meta.image);
+			atlas[atlasSrc] = json;
 		
-		var frames = json.frames;
-		for (var i; i < frames.length; i++) {
-			this._imgToAtlas[frames[i].filename] = { img: json.meta.image,
+			var frames = json.frames;
+			for (var i=0; i < frames.length; i++) {
+				Drawer._imgToAtlas[frames[i].filename] = { img: json.meta.image,
 													 frame: frames[i].frame };
-
-		}
+			}	
 		
+		});	
+		
+	
 
 	},
 	setScale: function (x, y) {
@@ -73,7 +79,7 @@ Drawer = {
 
 		ctx.save();
 		ctx.translate(x * xs, y * ys);
-		ctx.rotate(canvRot);
+		ctx.rotate(ang);
 		ctx.drawImage( img, f.x, f.y,
 							f.w, f.h,
 							-(w * xsh), -(h * ysh), 

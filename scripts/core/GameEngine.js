@@ -27,7 +27,10 @@ GameEngine = {
 
 		this.canvas = canvas;
 		this.ctx = canvas.getContext('2d');
-	
+
+		//DRAFT
+		Drawer.useAtlas('atlas/atlas');
+		
 		PhysicsEngine.addContactListener({
 			
 			BeginContact: function(A,B) {

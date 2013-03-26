@@ -8,22 +8,24 @@ Loader = {
 	sounds: {},
 	objects: {},
 	
-	_loadJson: function(src) {
+	_loadJson: function(src, fn) {
 		var objectCache = Loader.objects;
 		
 		if (objectCache[src]) {
+			if (fn) fn(objectCache[src]);
 			return objectCache[src];
 		}
-
-		var obj;
 
 		xhr = new XMLHttpRequest();
 		xhr.open("GET", src, true);
 		xhr.onload = function() {
-			objectCache[src] = JSON.parse(this.responseText);
+			var obj = JSON.parse(this.responseText); 
+			objectCache[src] = obj;
+			if (fn) fn(obj);
+			
 		};
 		xhr.send();
-		return objectCache[src];
+		return ;
 	},
 
 	_loadImg: function(src) { 
@@ -65,10 +67,10 @@ Loader = {
 	preload: function(src) {
 		var ext = this.FILE_EXT;
 		
-		if (ext.images.test(src)) {
+		if (ext.image.test(src)) {
 			this._loadImg(src);
 		}
-		else if (ext.sounds.test()){
+		else if (ext.sound.test()){
 			this._loadSound(src);
 		}
 		else if (ext.json.test(src)) {
@@ -76,18 +78,18 @@ Loader = {
 		}
 	},
 
-	load: function(src) {
+	load: function( src, fn) {
 		
 		var ext = this.FILE_EXT;
 		
 		if (ext.image.test(src)) {
-			return this._loadImg(src);
+			return this._loadImg(src, fn);
 		}
 		else if (ext.sound.test(src)) {
 			return this._loadSound(src);
 		}
 		else if (ext.json.test(src)) {
-			return this._loadJson(src);
+			return this._loadJson(src,fn);
 		}
 
 	}
