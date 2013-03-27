@@ -91,7 +91,10 @@ factory['Bullet'] = Class.extend({
 	},
 
 	onImpact: function(otherEnt) {
-		otherEnt.hitpoints -= this.damage;		
+		otherEnt.hitpoints -= this.damage;
+		GameEngine.spawn(
+				new factory['Explosion'](this.pos.x, this.pos.y));
+
 		this.kill();
 	}
 

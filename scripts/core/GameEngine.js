@@ -107,7 +107,7 @@ GameEngine = {
 
 		for (var i=0; i < dead.length; i++) {
 			
-			if (ent[dead[i]].physBody !== null) {
+			if (ent[dead[i]].physBody) {
 				PhysicsEngine.removeBodyAsObj(ent[dead[i]].physBody);			
 			}
 			ent.splice(dead[i], 1);
