@@ -16,7 +16,7 @@ Drawer = {
 		this.ctx = canvas.getContext('2d');
 
 	},	
-
+	
 	useAtlas: function (atlasSrc) {
 		var atlas = this._atlas;
 		var imgToAtlas = this._imgToAtlas;
@@ -38,6 +38,18 @@ Drawer = {
 	
 
 	},
+	getFrames: function (frameName) {
+		var name = new RegExp(frameName);
+		var frames = [];
+		for (var key in this._imgToAtlas) {
+			if (name.test(key)) {
+				frames.push(key);
+			}
+		}
+
+		return frames;
+	},
+	
 	setScale: function (x, y) {
 		this.xScale = x;
 		this.yScale = y;
