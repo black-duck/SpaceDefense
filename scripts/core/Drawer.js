@@ -75,6 +75,26 @@ Drawer = {
 							x * xs, y * ys, 
 							f.w * xsh, f.h * ysh);
 	},
+	__imageAltas5: function ( imgSrc, x, y, w, h) {
+
+		var xs = this.xScale,
+			ys = this.yScale,
+			xsh = this.xScaleHalf,
+			ysh = this.yScaleHalf;
+		
+		var atlas, img, frame;
+		var ctx = this.ctx;
+
+		atlas = this._imgToAtlas[imgSrc];
+		img = Loader.load(atlas.img);
+		f = atlas.frame;
+
+		ctx.drawImage(img, f.x, f.y, 
+							f.w, f.h, 
+							x * xs, y * ys, 
+							w * xsh, h * ysh);
+	},
+
 	__imageAtlas6: function (imgSrc, x, y, ang, w, h) {
 			
 		var xs = this.xScale,
@@ -107,6 +127,10 @@ Drawer = {
 			//Work TODO
 			if (arguments.length == 3) {
 				this.__imageAtlas3(imgSrc, canvX, canvY);
+			}
+			else if (arguments.length == 5) {
+				this.__imageAtlas6(imgSrc, canvX, canvY, 
+						arguments[3], arguments[4]);
 			}
 			else if (arguments.length == 6) {
 				//better way to do it
