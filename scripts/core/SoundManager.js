@@ -25,16 +25,17 @@ SoundManager = {
 	
 	main: new Array(this.numeberSpaces),
 	secondary: new Array(this.numeberSpaces),
+	
 	c1: 0,
 	c2: 0,
 	 
-	loadGuns: function(src1, src2){
+	loadGuns: function(src1,src2){
 		for(var j = 0; j < this.numeberSpaces; j++){
 			this.main[j] = Loader.load(src1 + '.' + this.audioType);
 			this.main[j].autoplay = false;
 			this.main[j].muted = this.globalMute;
 			this.main[j].volume = this.effectsVolume;	
-			this.secondary[j] = Loader.load(src1 + '.' + this.audioType);
+			this.secondary[j] = Loader.load(src2 + '.' + this.audioType);
 			this.secondary[j].autoplay = false;
 			this.secondary[j].muted = this.globalMute;
 			this.secondary[j].volume = this.effectsVolume;
@@ -42,7 +43,7 @@ SoundManager = {
 	},
 	
 	playGun: function(i){
-		if( i === 1){
+		if( i === 0){
 			this.main[this.c1].play();
 			this.c1 = (this.c1 + 1) % this.main.length;
 		}
@@ -180,4 +181,5 @@ SoundManager = {
 
 SoundManager.init();
 //Dratf Part
-SoundManager.loadGuns('sounds/LaserBeam0','sounds/LaserBeam1');
+SoundManager.loadGuns('sounds/LaserBeam0','sounds/Explosion0');
+SoundManager.maudio.pause();
