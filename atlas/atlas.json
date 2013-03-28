@@ -163,10 +163,10 @@
 "meta": {
 	"app": "http://www.texturepacker.com",
 	"version": "1.0",
-	"image": "atlas/atlas.png",
+	"image": "altas.png",
 	"format": "RGBA8888",
 	"size": {"w":512,"h":512},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:9488209a63340b517f21676811f9dbc6$"
+	"smartupdate": "$TexturePacker:SmartUpdate:45acdcf44e41620e1d8c42dad705a29f$"
 }
 }
