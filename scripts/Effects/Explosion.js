@@ -22,7 +22,10 @@ factory['Explosion'] = Class.extend({
 
 		this.pos.x = x;
 		this.pos.y = y;
-		
+		if (settings) {
+			if (settings.width) this.size.x = settings.width;
+			if (settings.height) this.size.y = settings.height;
+		}
 		this.frames = Drawer.getFrames(this.imgSrc);
 	},
 

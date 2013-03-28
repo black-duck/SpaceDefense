@@ -70,6 +70,11 @@ factory['SimpleShip'] = Class.extend({
 		}
 
 		if (this.hitpoints <= 0) {
+			GameEngine.spawn( new factory['Explosion'](this.pos.x, this.pos.y, 
+														{width: this.size.x,
+															height: this.size.y}
+							
+												) );
 			this.kill();
 		}
 
