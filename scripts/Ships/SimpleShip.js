@@ -24,8 +24,9 @@ factory['SimpleShip'] = Class.extend({
 		y: 0
 	},
 
-	img: 'ship.png',
-
+	img: ['ship.png','ship2.png'],
+	_frameIter: 0,
+	
     init: function(sX, sY, eX, eY) {
 
 		this.pos.x = sX;
@@ -76,10 +77,14 @@ factory['SimpleShip'] = Class.extend({
     
 	draw: function(ctx) {
 		var rad = this.physBody.GetAngle();		
-		Drawer.image( this.img, 
+		var frame = this.img[Math.floor(this._frameIter)] ;
+		
+		Drawer.image( frame, 
 						this.pos.x, this.pos.y, rad, 
 						this.size.x, this.size.y);
-
+	
+		
+		this._frameIter = (this._frameIter + 0.2) % this.img.length;
 	},
 
 	kill: function() {
