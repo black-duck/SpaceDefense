@@ -42,7 +42,7 @@ factory['SimpleShip'] = Class.extend({
 	                        	 userData: { id: 'SimpleShip',
 	                            	         ent: this 
 	                                     },
-	             				 angle: Geometry.vecToRad(this.dir.x/this.dir.y),
+	             				 angle: Geometry.vecToRad(this.dir.x, this.dir.y),
 	                             halfWidth: this.size.x/2,
 	                             halfHeight: this.size.y/2
 	 
