@@ -106,6 +106,59 @@ Drawer = {
 		this.yScaleHalf = x/2;
 	},
 
+	//Draw a rectangle shape
+	//
+	//rect is an overloaded method
+	//
+	//Drawer.rect(x, y, width, height);
+	//Drawer.rect(x, y, width, height, color);
+	//Drawer.rect(x, y, width, height, color, fill);
+	//Drawer.rect(x, y, angle, width, height, color, fill);
+	rect: function () {
+		
+		if (arguments.length == 4) {
+			this.__rect4(arguments[0], arguments[1], arguments[2], arguments[3]);
+
+		}
+		else if (arguments.length == 5) {
+
+		}
+		else if (arguments.length == 6) {
+
+
+		}
+		else if (arguments.length == 7) {
+
+
+		}
+
+	},
+
+	__rect4: function (x, y, width, height) {
+	
+		var ctx = this.ctx;
+		
+		var xs = this.xScale,
+			ys = this.yScale,
+			xsh = this.xScaleHalf,
+			ysh = this.yScaleHalf;
+	
+		ctx.strokeRect(x * xs, y * ys, width * xs, height * ys);
+	},
+
+	__rect5: function (x, y, width, height, color) {
+
+
+	},
+
+	__rect6: function (x, y, width, height, color, fill) {
+
+	},
+
+	__rect7: function (x, y, angle, width, height, color, fill) {
+
+
+	},
 	//Draw an image to canvas
 	//
 	//image is an overloaded method
@@ -205,7 +258,7 @@ Drawer = {
 								canvHeight * yScale);
 			ctx.restore();
 		}
-	}
+	},
 	//Not overloaded versions of .image()
 	//[if a fucntion is not overloaded 
 	// js-interpreter can compile them 
@@ -307,6 +360,6 @@ Drawer = {
 							w  * xs, h * ys);
 		ctx.restore();
 
-	},
+	}
 
 }
