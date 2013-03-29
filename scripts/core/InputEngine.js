@@ -29,10 +29,10 @@ InputEngine = {
                 InputEngine.bind(68, 'look-right');
 
                 //fire key bindings
-//             InputEngine.bind(81,'powerup-use');  //Q
-//             InputEngine.bind(69,'fire-superWeapon');  //E
-                InputEngine.bind(32,'fire-primary');  //Space
-//             InputEngine.bind(16,'fire-missile');  //Shift   Ascii code=0 key code=16
+               InputEngine.bind(81,'powerup-use');  //Q
+               InputEngine.bind(69,'fire-superWeapon');  //E
+               InputEngine.bind(32,'fire-primary');  //Space
+               InputEngine.bind(16,'fire-missile');  //Shift   Ascii code=0 key code=16
 
 			
                 //event listeners
@@ -42,6 +42,8 @@ InputEngine = {
                 canvas.addEventListener('mousemove', InputEngine.onMouseMove,true);
                 document.addEventListener('keydown', InputEngine.onKeyDown,true);
                 document.addEventListener('keyup', InputEngine.onKeyUp,true);
+                canvas.addEventListener('touchstart',InputEngine.onMouseDown,false);
+                canvas.addEventListener('touchend',InputEngine.onMouseUp,false);
         },
 	onMouseDown:function(event){
  		var action = InputEngine.bindings[32];
@@ -49,9 +51,9 @@ InputEngine = {
 			InputEngine.actions[action] = false;
 			return false;
 		}
- 		var rect = document.getElementById('canvas').getBoundingClientRect();
+ 		var rect = canvas.getBoundingClientRect();
 		InputEngine.mouse.x = (event.clientX-rect.left)*Scale.x;
-        InputEngine.mouse.y = (event.clientY-rect.top)*Scale.y;
+        	InputEngine.mouse.y = (event.clientY-rect.top)*Scale.y;
 		
 		if (action) {
         	InputEngine.actions[action] = true;
@@ -63,26 +65,26 @@ InputEngine = {
                       InputEngine.actions[action] = false;
                 }
 	},
-        //-----------------------------
+       
         onMouseMove: function (event) {
-        	var rect = document.getElementById('canvas').getBoundingClientRect();
-			InputEngine.mouse.x = (event.clientX-rect.left) * Scale.x;
-            InputEngine.mouse.y = (event.clientY-rect.top) * Scale.y;	
+        	var rect = canvas.getBoundingClientRect();
+		InputEngine.mouse.x = (event.clientX-rect.left) * Scale.x;
+            	InputEngine.mouse.y = (event.clientY-rect.top) * Scale.y;	
         },
 
 
-        //-----------------------------
+      
         onKeyDown: function (event) {
 				
                 var action = InputEngine.bindings[event.keyCode];
-				console.log( event.keyCode );
+		console.log( event.keyCode );
                 if (action) {
                         InputEngine.actions[action] = true;
 						
                 }
         },
 
-   //-----------------------------
+   
         onKeyUp: function (event) {
 
                 var action = InputEngine.bindings[event.keyCode];
@@ -93,7 +95,7 @@ InputEngine = {
                 }
         },
 
-        //-----------------------------
+        
         bind: function (key, action) {
                 InputEngine.bindings[key] = action;
 				
