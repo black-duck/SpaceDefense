@@ -85,7 +85,7 @@ factory['SimpleShip'] = Class.extend({
 		var frame = this.img[Math.floor(this._frameIter)] ;
 		
 		Drawer.image( frame, 
-						this.pos.x, this.pos.y, rad, 
+						this.pos.x, this.pos.y, rad / 2, 
 						this.size.x, this.size.y);
 	
 		
