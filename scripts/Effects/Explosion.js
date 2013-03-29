@@ -27,6 +27,7 @@ factory['Explosion'] = Class.extend({
 			if (settings.height) this.size.y = settings.height;
 		}
 		this.frames = Drawer.getFrames(this.imgSrc);
+		this.frames.sort();
 	},
 
 	update: function() {

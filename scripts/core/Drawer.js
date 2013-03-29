@@ -1,3 +1,18 @@
+//Drawer
+//You must use it whenever you want to draw in canvas.
+//
+//Dependencies: canvas, Loader.
+//
+//API methods:
+//
+//init(canvas);
+//useAtlas(Atlas json file without extension);
+//getFrames(Regular Expresion);
+//setScale(x Scale, y Scale);
+//image(Image src);
+//
+//Features:
+
 Drawer = {
 
 	canvas: null ,
@@ -11,12 +26,22 @@ Drawer = {
 	xScaleHalf: 0.5,
 	yScaleHalf: 0.5,
 
+
 	init: function (canvas) {
 		this.canvas = canvas;
 		this.ctx = canvas.getContext('2d');
 
 	},	
 	
+	//Load Atlas images in order to draw them later
+	//parameters: 
+	//atlasSrc - Atlas json uri *without* .json extension
+	//
+	//note: It does not support trim and rotation yet.
+	//
+	//example:
+	//to load images/atlas1.json
+	//Drawer.useAtlas('images/atlas1');
 	useAtlas: function (atlasSrc) {
 		var atlas = this._atlas;
 		var imgToAtlas = this._imgToAtlas;
@@ -32,12 +57,17 @@ Drawer = {
 				Drawer._imgToAtlas[frames[i].filename] = { img: json.meta.image,
 													 frame: frames[i].frame };
 			}	
-		
 		});	
-		
-	
 
 	},
+
+	//Search on Atlases images and return an array of images names
+	//that much the given regular expresion
+	//
+	//Usefull for animation frames
+	//
+	//parameters:
+	//frameName - String that contains a regular expresion
 	getFrames: function (frameName) {
 		var name = new RegExp(frameName);
 		var frames = [];
@@ -50,83 +80,65 @@ Drawer = {
 		return frames;
 	},
 	
+	//Change the scale ratio between gameEngine metrics and pixels
+	//
+	//Usefull for cross-screen scaling
+	//
+	//
+	//parameters:
+	//x - x scale ratio
+	//y - y scale ratio
+	//
+	//note: It is recommended to use the same number for x and y scale.
+	//note: Use the invert scale in InputEngine.
+	//
+	//example:
+	//if you have a 800x600 map, a 1920x1080 screen and you want to keep aspect ratio:
+	//Drawer.setScale(1080/600, 1080/600);
+	//if you don't want to keep the aspect ratio:
+	//Drawer.setScale(1920/800, 1080,600);
+	//
+	//Don't forget to scale InputEngine
 	setScale: function (x, y) {
 		this.xScale = x;
 		this.yScale = y;
 		this.xScaleHalf = x/2;
 		this.yScaleHalf = x/2;
 	},
-	__imageAltas3: function ( imgSrc, x, y) {
 
-		var xs = this.xScale,
-			ys = this.yScale,
-			xsh = this.xScaleHalf,
-			ysh = this.yScaleHalf;
-		
-		var atlas, img, frame;
-		var ctx = this.ctx;
-
-		atlas = this._imgToAtlas[imgSrc];
-		img = Loader.load(atlas.img);
-		f = atlas.frame;
-
-		ctx.drawImage(img, f.x, f.y, 
-							f.w, f.h, 
-							x * xs, y * ys, 
-							f.w * xsh, f.h * ysh);
-	},
-	__imageAtlas5: function ( imgSrc, x, y, w, h) {
-
-		var xs = this.xScale,
-			ys = this.yScale,
-			xsh = this.xScaleHalf,
-			ysh = this.yScaleHalf;
-		
-		var atlas, img, frame;
-		var ctx = this.ctx;
-
-		atlas = this._imgToAtlas[imgSrc];
-		img = Loader.load(atlas.img);
-		f = atlas.frame;
-
-		ctx.drawImage(img, f.x, f.y, 
-							f.w, f.h, 
-							x * xs - (w * xsh), y * ys - (h * ysh), 
-							w * xs, h * ys);
-	},
-
-	__imageAtlas6: function (imgSrc, x, y, ang, w, h) {
-			
-		var xs = this.xScale,
-			ys = this.yScale,
-			xsh = this.xScaleHalf,
-			ysh = this.yScaleHalf;
-
-		var atlas, img, frame;
-		var ctx = this.ctx;
-
-		atlas = this._imgToAtlas[imgSrc];
-		img = Loader.load(atlas.img);
-		f = atlas.frame;
-
-		ctx.save();
-		ctx.translate(x * xs, y * ys);
-		ctx.rotate(ang);
-		ctx.drawImage( img, f.x, f.y,
-							f.w, f.h,
-							-(w * xsh), -(h * ysh), 
-							w  * xs, h * ys);
-		ctx.restore();
-
-	},
-	//overloaded method
+	//Draw an image to canvas
+	//
+	//image is an overloaded method
+	//
+	//Drawer.image(imgSrc, x, y);
+	//Drawer.image(imgSrc, x, y, angle);
+	//Drawer.image(imgSrc, x, y, width, height);
+	//Drawer.image(imgSrc, x, y, rad, width, height);
+	//
+	//Features:
+	//1.Translate x,y image possition from top-right to center.
+	//2.Scale x,y posstions and width, heigth.
+	//3.Load Atlases in order draw images from them.
+	//3.Automatically detects if image belongs to an Atlas  
+	//and use proper translations to draw it from there.
+	//
+	//parameters:
+	//imgSrc - string with image uri, or image name on an atlas
+	//x		 - x axis center possition of image
+	//y		 - y axis center possition of image
+	//angle	 - rotation angle in radius
+	//width  - resize image width to specified
+	//height - resize image height to specified
+	//
 	image: function (imgSrc, canvX , canvY) {
 
 		if (this._imgToAtlas[imgSrc]) {
 			
-			//Work TODO
 			if (arguments.length == 3) {
 				this.__imageAtlas3(imgSrc, canvX, canvY);
+			}
+			else if (arguments.length == 4) {
+				this.__imageAtlas4(imgSrc, canvX, canvY, arguments[3]);
 			}
 			else if (arguments.length == 5) {
 				this.__imageAtlas5(imgSrc, canvX, canvY, 
@@ -143,6 +155,8 @@ Drawer = {
 		}
 
 
+		//Work TODO
+		
 		var canvRot, canvWidth, canvHeight, imgX, imgY, imgWidth, imgHeight;
 		var img,ctx;
 			
@@ -192,5 +206,107 @@ Drawer = {
 			ctx.restore();
 		}
 	}
+	//Not overloaded versions of .image()
+	//[if a fucntion is not overloaded 
+	// js-interpreter can compile them 
+	// for great performance]
+	
+	//Called when we use Atlas and have 3 arguments
+	__imageAltas3: function (imgSrc, x, y) {
+
+		var xs = this.xScale,
+			ys = this.yScale,
+			xsh = this.xScaleHalf,
+			ysh = this.yScaleHalf;
+		
+		var atlas, img, frame;
+		var ctx = this.ctx;
+
+		atlas = this._imgToAtlas[imgSrc];
+		img = Loader.load(atlas.img);
+		f = atlas.frame;
+
+		ctx.drawImage(img, f.x, f.y, 
+							f.w, f.h, 
+							x * xs, y * ys, 
+							f.w * xsh, f.h * ysh);
+	},
+	//Called when we use Atlas and have 4 arguments
+	//Parameters:
+	//string with image src, x possition, y possition and rotation angle in radius
+	__imageAtlas4: function (imgSrc, x, y, ang) {
+			
+		var xs = this.xScale,
+			ys = this.yScale,
+			xsh = this.xScaleHalf,
+			ysh = this.yScaleHalf;
+
+		var atlas, img, frame;
+		var ctx = this.ctx;
+
+		atlas = this._imgToAtlas[imgSrc];
+		img = Loader.load(atlas.img);
+		f = atlas.frame;
+
+		ctx.save();
+		ctx.translate(x * xs, y * ys);
+		ctx.rotate(ang);
+		ctx.drawImage( img, f.x, f.y,
+							f.w, f.h,
+							-(f.w * xsh), -(f.h * ysh), 
+							f.w  * xs, f.h * ys);
+		ctx.restore();
+
+	},
+	//Called when we use Atlas and have 5 arguments
+	//Parameters:
+	//string with image src, x possition, y possition, width, height
+	__imageAtlas5: function ( imgSrc, x, y, w, h) {
+
+		var xs = this.xScale,
+			ys = this.yScale,
+			xsh = this.xScaleHalf,
+			ysh = this.yScaleHalf;
+		
+		var atlas, img, frame;
+		var ctx = this.ctx;
+
+		atlas = this._imgToAtlas[imgSrc];
+		img = Loader.load(atlas.img);
+		f = atlas.frame;
+
+		ctx.drawImage(img, f.x, f.y, 
+							f.w, f.h, 
+							x * xs - (w * xsh), y * ys - (h * ysh), 
+							w * xs, h * ys);
+	},
+	//Called when we use Atlas and have 6 arguments
+	//Parameters:
+	//string with image src, x possition, y possition, rotation angle in radius
+	//, width, height
+	__imageAtlas6: function (imgSrc, x, y, ang, w, h) {
+			
+		var xs = this.xScale,
+			ys = this.yScale,
+			xsh = this.xScaleHalf,
+			ysh = this.yScaleHalf;
+
+		var atlas, img, frame;
+		var ctx = this.ctx;
+
+		atlas = this._imgToAtlas[imgSrc];
+		img = Loader.load(atlas.img);
+		f = atlas.frame;
+
+		ctx.save();
+		ctx.translate(x * xs, y * ys);
+		ctx.rotate(ang);
+		ctx.drawImage( img, f.x, f.y,
+							f.w, f.h,
+							-(w * xsh), -(h * ysh), 
+							w  * xs, h * ys);
+		ctx.restore();
+
+	},
 
 }
