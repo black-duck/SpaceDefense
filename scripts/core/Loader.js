@@ -1,9 +1,11 @@
 Loader = {
+
 	FILE_EXT: {
 		sound: /(.mp3|.ogg)$/,
 		image: /(.jpg|.jpeg|.png)$/,
 		json: /(.json)$/
 	},
+	
 	images: {},
 	sounds: {},
 	objects: {},
@@ -64,6 +66,10 @@ Loader = {
 
 	},
 
+	//Tell Loader that you will need a resource later
+	//
+	//parameters:
+	//src	- uri location of resource
 	preload: function(src) {
 		var ext = this.FILE_EXT;
 		
@@ -78,7 +84,21 @@ Loader = {
 		}
 	},
 
-	load: function( src, fn) {
+	//Loads specified resource
+	//
+	//It automatically determines how to load the 
+	//specified resource based on its extension
+	//
+	//overloaded method:
+	//load(src);
+	//load(src, callback);
+	//
+	//parameters:
+	//src 		- uri location of resource
+	//callback	- callback function to run when resources is loaded
+	//
+	//note: callback function is not needed for images and audio
+	load: function(src, fn) {
 		
 		var ext = this.FILE_EXT;
 		
