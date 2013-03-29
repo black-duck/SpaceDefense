@@ -49,7 +49,7 @@ factory['Lifebar'] = Class.extend({
 
 	draw: function() {
 		var ent = this._entity;
-		var liferate = this._entity.hitpoints / 10;//DRAFT: hard coded value
+		var liferate = this._entity.hitpoints / 2;//DRAFT: hard coded value
 		Drawer.rect(this.pos.x, this.pos.y, this.size.x, this.size.y, 'green');
 		Drawer.rect(this.pos.x, this.pos.y, liferate * this.size.x, this.size.y, 'green', 'green');
 	},

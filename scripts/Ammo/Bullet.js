@@ -7,7 +7,7 @@ factory['Bullet'] = Class.extend({
 	
 	speed: 800,
 	lifetime: 5000,
-	damage: 2,
+	damage: 1,
 
 	size: {
 		x: 5,

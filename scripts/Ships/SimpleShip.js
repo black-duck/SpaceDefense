@@ -7,7 +7,7 @@ factory['SimpleShip'] = Class.extend({
     physBody: null,
 
 	speed: 60,
-	hitpoints: 10,
+	hitpoints: 2,
 
 	size: {
 		x: 38,
