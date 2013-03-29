@@ -112,8 +112,8 @@ Drawer = {
 	//
 	//Drawer.rect(x, y, width, height);
 	//Drawer.rect(x, y, width, height, color);
-	//Drawer.rect(x, y, width, height, color, fill);
-	//Drawer.rect(x, y, angle, width, height, color, fill);
+	//Drawer.rect(x, y, width, height, color, fillColor);
+	//Drawer.rect(x, y, angle, width, height, color, fillColor);
 	rect: function () {
 		
 		if (arguments.length == 4) {
@@ -121,11 +121,12 @@ Drawer = {
 
 		}
 		else if (arguments.length == 5) {
-
+			this.__rect5(arguments[0], arguments[1], arguments[2], 
+					arguments[3], arguments[4]);
 		}
 		else if (arguments.length == 6) {
-
-
+			this.__rect6(arguments[0], arguments[1], arguments[2], 
+					arguments[3], arguments[4], arguments[5]);
 		}
 		else if (arguments.length == 7) {
 
@@ -143,15 +144,47 @@ Drawer = {
 			xsh = this.xScaleHalf,
 			ysh = this.yScaleHalf;
 	
+		ctx.beginPath();
+		ctx.lineWidth = '1';	
+		ctx.strokeStyle = 'blue';
 		ctx.strokeRect(x * xs, y * ys, width * xs, height * ys);
+		ctx.stroke();
 	},
 
 	__rect5: function (x, y, width, height, color) {
+		
+		var ctx = this.ctx;
+		
+		var xs = this.xScale,
+			ys = this.yScale,
+			xsh = this.xScaleHalf,
+			ysh = this.yScaleHalf;
+	
+		ctx.beginPath();
+		ctx.lineWidth = '1';	
+		ctx.strokeStyle = color;
+		ctx.strokeRect(x * xs, y * ys, width * xs, height * ys);
+		ctx.stroke();
 
 
 	},
 
-	__rect6: function (x, y, width, height, color, fill) {
+	__rect6: function (x, y, width, height, color, fillColor) {
+		
+		var ctx = this.ctx;
+		
+		var xs = this.xScale,
+			ys = this.yScale,
+			xsh = this.xScaleHalf,
+			ysh = this.yScaleHalf;
+	
+		ctx.beginPath();
+		ctx.lineWidth = '2';	
+		ctx.strokeStyle = color;
+		ctx.fillStyle = fillColor;
+		ctx.fillRect(x * xs, y * ys, width * xs, height * ys);
+		ctx.stroke();
+
 
 	},
 
