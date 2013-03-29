@@ -12,7 +12,7 @@ factory['Explosion'] = Class.extend({
 		y:0
 	},
 
-	duration: 350, //in ms
+	duration: 250, //in ms
 
 	frames: [],
 	_animIter: 0,
