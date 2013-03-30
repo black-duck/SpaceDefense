@@ -34,8 +34,10 @@ GameEngine = {
 		PhysicsEngine.addContactListener({
 			
 			BeginContact: function(A,B) {
-				if( A.GetUserData().id == 'bullet' ) {
-					A.GetUserData().ent.onImpact(B.GetUserData().ent);
+				if (A.GetUserData().id == 'bullet') {
+					if (B.GetUserData().id != 'Turret') {
+						A.GetUserData().ent.onImpact(B.GetUserData().ent);
+					}
 				}
 			}
 
@@ -69,29 +71,23 @@ GameEngine = {
 			Player0.turret._fireTrigger = false;	
 		}
 		if(InputEngine.actions['look-up']) {
-			if (InputEngine.mouse.x<420){
-				InputEngine.mouse.x+=20;
-				InputEngine.mouse.y=-1;}
-			else if (InputEngine.mouse.x>420){
-				InputEngine.mouse.x-=20;
-				InputEngine.mouse.y=-1;}
-			
-		};
-		if(InputEngine.actions['look-right']) {
-			if(InputEngine.mouse.x<880){
-				InputEngine.mouse.x+=20;
-				InputEngine.mouse.y=100;
-			}
-		};
-		if(InputEngine.actions['look-left']) {
-			if (InputEngine.mouse.x>-20){
-				InputEngine.mouse.x-=20;
-				InputEngine.mouse.y=134;
-			}
-		};
-		//DRAFT end
+			Player0.turret.turn(0);
+		}
+		else if(InputEngine.actions['look-right']) {
+			Player0.turret.turn(Player0.turret.angle + Math.PI/48 );
+		}
+		else if(InputEngine.actions['look-left']) {
+			Player0.turret.turn(Player0.turret.angle - Math.PI/48 );
+		}
+		else if(InputEngine.actions['mousemove']) {	
+			Player0.turret.turn(
+				Geometry.vecToRad(	InputEngine.mouse.x - Player0.turret.pos.x,
+									InputEngine.mouse.y - Player0.turret.pos.y)
+				);
+			//Draft inner InputEngine function
+			InputEngine.actions['mousemove'] = false;
+		}
 
-		
 		var ent = this.Entities;
 		var dead = [];	
 
