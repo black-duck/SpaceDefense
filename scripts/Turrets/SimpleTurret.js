@@ -104,7 +104,7 @@ factory['Turret'] = Class.extend({
 					this.dir.x,this.dir.y
 				));
 
-		SoundManager.playGun(0);
+		SoundManager.playSound('sounds/LaserBeam0');
 		this._fireCool = this._fireRate;
 	
 
