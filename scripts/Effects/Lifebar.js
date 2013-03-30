@@ -47,6 +47,7 @@ factory['Lifebar'] = Class.extend({
 	},
 
 	draw: function() {
+
 		if (!this._hidden) {	
 			Drawer.rect(this.pos.x, this.pos.y, this.width, this.height, 'green');
 			Drawer.rect(this.pos.x, this.pos.y, this.liferatio * this.size.x, this.size.y, 'green', 'green');

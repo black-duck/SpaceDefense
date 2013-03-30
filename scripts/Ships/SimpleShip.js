@@ -8,6 +8,7 @@ factory['SimpleShip'] = Class.extend({
 	lifeBar: null,
 
 	speed: 60,
+
 	hitpoints: 10,
 	maxHitpoints: 10,
 
@@ -96,7 +97,7 @@ factory['SimpleShip'] = Class.extend({
 		var frame = this.img[Math.floor(this._frameIter)] ;
 		
 		Drawer.image( frame, 
-						this.pos.x, this.pos.y, rad, 
+						this.pos.x, this.pos.y, rad / 2, 
 						this.size.x, this.size.y);
 	
 		

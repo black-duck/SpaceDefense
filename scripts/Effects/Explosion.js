@@ -14,6 +14,8 @@ factory['Explosion'] = Class.extend({
 
 	duration: 250, //in ms
 
+    extend_possibility_percent: 50, // 50% to play the 'explosion' animation once more.
+
 	frames: [],
 	_animIter: 0,
 	imgSrc: 'Explosion1',
@@ -33,7 +35,10 @@ factory['Explosion'] = Class.extend({
 	update: function() {
 		this.duration -= 1000/60;
 		if (this.duration <= 0) {
-			this.kill();
+            perc = Math.floor(Math.random() * 101);
+            if (perc > this.extend_possibility_percent) {
+			    this.kill();
+            }
 		}
 	},
 	
