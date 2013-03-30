@@ -1,10 +1,13 @@
 
 factory['Bullet'] = Class.extend({ 
 
+	_killed: false,
+
 	physBody: null,
+	
 	speed: 800,
 	lifetime: 5000,
-	_killed: false,
+	damage: 2,
 
 	size: {
 		x: 5,
@@ -41,7 +44,7 @@ factory['Bullet'] = Class.extend({
 	                        	 userData: { id: 'bullet',
 	                            	         ent: this 
 	                                     },
-	            				 angle: -Math.atan(this.dir.x/this.dir.y), 
+	            				 angle: Geometry.vecToRad(this.dir.x, this.dir.y), 
 	                             halfWidth: this.size.y/2,
 	                             halfHeight: this.size.x/2
 	 
@@ -85,6 +88,11 @@ factory['Bullet'] = Class.extend({
 						this.pos.x, this.pos.y, rad, 
 						this.size.x, this.size.y );
 
+	},
+
+	onImpact: function(otherEnt) {
+		otherEnt.damage(this.damage);
+		this.kill();
 	}
 
 	
