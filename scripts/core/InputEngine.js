@@ -66,33 +66,33 @@ InputEngine = {
                 }
 	},
        
-        onMouseMove: function (event) {
-        	var rect = canvas.getBoundingClientRect();
+    onMouseMove: function (event) {
+       	var rect = canvas.getBoundingClientRect();
+		InputEngine.actions['mousemove'] = true;
 		InputEngine.mouse.x = (event.clientX-rect.left) * Scale.x;
-            	InputEngine.mouse.y = (event.clientY-rect.top) * Scale.y;	
-        },
+       	InputEngine.mouse.y = (event.clientY-rect.top) * Scale.y;	
+	},
 
 
       
-        onKeyDown: function (event) {
+    onKeyDown: function (event) {
 				
-                var action = InputEngine.bindings[event.keyCode];
-		console.log( event.keyCode );
-                if (action) {
-                        InputEngine.actions[action] = true;
+    	var action = InputEngine.bindings[event.keyCode];
+        	if (action) {
+            	InputEngine.actions[action] = true;
 						
-                }
-        },
+    		}
+	},
 
    
-        onKeyUp: function (event) {
+    onKeyUp: function (event) {
 
-                var action = InputEngine.bindings[event.keyCode];
+    	var action = InputEngine.bindings[event.keyCode];
 
-                if (action) {
-                        InputEngine.actions[action] = false;
-						
-                }
+        if (action) {
+        	InputEngine.actions[action] = false;
+		
+        }
         },
 
         
