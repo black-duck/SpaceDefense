@@ -25,10 +25,12 @@ factory['Turret'] = Class.extend({
 
 	//6 bullets per sec
 	_fireRate: (1000/6),
-
 	_fireTrigger: false,
-	
 	_fireCool: 0,
+
+	energy: 120,
+	maxEnergy: 150,
+	regen: 0.8,
 
 	img: assets['turret'],
 
@@ -61,9 +63,22 @@ factory['Turret'] = Class.extend({
 		this.angle = pAng;
 		this.dir.Set(Math.cos(pAng - Math.PI/2), Math.sin(pAng -  Math.PI/2));
 		this.dir.Normalize();
-
+		
+		if (this.energy <= this.maxEnergy/4) {
+			this.energy += this.regen/2;
+		}
+		else {
+			this.energy += this.regen;
+		}  
+		if (this.energy > this.maxEnergy) {
+			this.energy = this.maxEnergy;
+		}
 		//Must use dir insted
-		if (this._fireTrigger && this._fireCool == 0) {
+		if (this._fireTrigger && this._fireCool == 0 && this.energy - 10 > 0) {
+			this.energy -= 10;//DRAFT LINE: hardcoded value
+			if (this.energy < 0) {
+				this.energy = 0;
+			}
 			this.__fire();
 		}
 		else if (this._fireCool >  0) {
@@ -96,6 +111,12 @@ factory['Turret'] = Class.extend({
 		this.targetAngle = rads % (2*Math.PI);
 	},
 
+	startFire: function() {
+		this._fireTrigger = true;
+	},
+	stopFire: function() {
+		this._fireTrigger = false;
+	},
 	//DRAFT-part START
 	__fire: function() {
 
