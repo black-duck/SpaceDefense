@@ -58,7 +58,7 @@ PhysicsEngine = {
 		var start = Date.now();
     	this.world.Step(
     				PHYSICS_LOOP_HZ, //frame-rate
-    				8, //velocity iterations
+    				5, //velocity iterations
     				6); //position iterations
     
 		//this.world.ClearForces();
@@ -79,6 +79,9 @@ PhysicsEngine = {
     	if (entityDef.type == 'static') {
 			bodyDef.type = Body.b2_staticBody;
     	} 
+		else if (entityDef.type == 'kinematic') {
+			bodyDef.type = Body.b2_kinematicBody;
+		}
 		else {
       		bodyDef.type = Body.b2_dynamicBody;
     	}
@@ -86,15 +89,21 @@ PhysicsEngine = {
     	bodyDef.position.x = entityDef.x;
     	bodyDef.position.y = entityDef.y;
     
-		if (entityDef.userData) bodyDef.userData = entityDef.userData;
-    	if (entityDef.angle) bodyDef.angle = entityDef.angle;
-    	if (entityDef.damping) bodyDef.linearDamping = entityDef.damping;
+		if (entityDef.userData !== undefined) bodyDef.userData = entityDef.userData;
+    	if (entityDef.angle !== undefined) bodyDef.angle = entityDef.angle;
+    	if (entityDef.damping !== undefined) bodyDef.linearDamping = entityDef.damping;
     	if (entityDef.bullet) bodyDef.bullet = true;	
 
 		var body = this.registerBody(bodyDef);
 		var fixtureDefinition = new FixtureDef;
 
-		fixtureDefinition.density = 1.0;
+	   	if (entityDef.density !== undefined) {
+			fixtureDefinition.density = entityDef.density; 
+		}
+		else {
+			fixtureDefinition.density = 1.0;
+		}
+		
 		fixtureDefinition.friction = 0; 
 		fixtureDefinition.restitution = 0; 
 

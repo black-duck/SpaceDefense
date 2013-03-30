@@ -41,6 +41,7 @@ factory['Bullet'] = Class.extend({
 	                        	 y: sY,
 								 damping: 0,
 								 bullet: true,
+								 density: 0,
 	                        	 userData: { id: 'bullet',
 	                            	         ent: this 
 	                                     },

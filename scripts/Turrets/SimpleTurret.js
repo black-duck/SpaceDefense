@@ -41,6 +41,7 @@ factory['Turret'] = Class.extend({
 						id: 'Turret',
 						x: x,
 						y: y,
+						type: 'kinematic',
 						userData: { id: 'Turret',
 									ent: this },
 						angle: Geometry.vecToRad(this.dir.x, this.dir.y),
