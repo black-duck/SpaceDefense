@@ -37,6 +37,7 @@ GameEngine = {
 				if (A.GetUserData().id == 'bullet') {
 					if (B.GetUserData().id != 'Turret') {
 						A.GetUserData().ent.onImpact(B.GetUserData().ent);
+						A.SetActive(false);
 					}
 				}
 			}

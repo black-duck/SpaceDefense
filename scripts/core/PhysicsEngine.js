@@ -25,7 +25,7 @@ PhysicsEngine = {
 
 		this.world = new World(
     		new Vec2(0, 0), //gravity    						
-    		false ); //don't allow sleep
+    		true ); //don't allow sleep
 
 	},
 
@@ -58,8 +58,8 @@ PhysicsEngine = {
 		var start = Date.now();
     	this.world.Step(
     				PHYSICS_LOOP_HZ, //frame-rate
-    				10, //velocity iterations
-    				7); //position iterations
+    				8, //velocity iterations
+    				6); //position iterations
     
 		//this.world.ClearForces();
     	return (Date.now() - start);
