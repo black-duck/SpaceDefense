@@ -1,6 +1,6 @@
 SoundManager = {
 	//General variables
-	effectsVolume: 1,
+	effectsVolume: 0.15,
 	
 	musicVolume: 1,
 	
@@ -18,9 +18,42 @@ SoundManager = {
 		if (audio.canPlayType('audio/ogg; codecs="vorbis"'))
 			this.audioType = 'ogg';
 		else
-			this.audioType = 'mp3';	
+			this.audioType = 'mp3';
 	},
+	
+	numeberSpaces: 5, //DRAFT  ->> bullets per second * audio duration 
+	
+	main: new Array(this.numeberSpaces),
+	secondary: new Array(this.numeberSpaces),
+	
+	c1: 0,
+	c2: 0,
 	 
+	loadGuns: function(src1,src2){
+		for(var j = 0; j < this.numeberSpaces; j++){
+			this.main[j] = Loader.load(src1 + '.' + this.audioType);
+			this.main[j].autoplay = false;
+			this.main[j].muted = this.globalMute;
+			this.main[j].volume = this.effectsVolume;	
+			this.secondary[j] = Loader.load(src2 + '.' + this.audioType);
+			this.secondary[j].autoplay = false;
+			this.secondary[j].muted = this.globalMute;
+			this.secondary[j].volume = this.effectsVolume;
+		}
+	},
+	
+	playGun: function(i){
+		if( i === 0){
+			this.main[this.c1].play();
+			this.c1 = (this.c1 + 1) % this.main.length;
+		}
+		else{
+			this.secondary[this.c2].play();
+			this.c2 = (this.c2 + 1) % this.secondary.length;
+		}
+		
+	},
+	
 	//Play the sound effect
 	playSound: function(src){
 		try{
@@ -48,7 +81,6 @@ SoundManager = {
 		this.maudio.muted = this.globalMute;
 		this.maudio.volume = this.musicVolume;
 		this.maudio.addEventListener("ended",function(){
-			console.log("Error");
 			SoundManager.nextTrack();
 		});
 	},
@@ -59,7 +91,7 @@ SoundManager = {
 		this.maudio.autoplay = false;
 		this.maudio.muted = this.globalMute;
 		this.maudio.volume = this.musicVolume;
-		this.maudio.addEventListener("onended",function(){
+		this.maudio.addEventListener("ended",function(){
 			SoundManager.nextTrack();
 		});
 		this.playMusic()
@@ -146,3 +178,8 @@ SoundManager = {
 	
 	
 }
+
+SoundManager.init();
+//Dratf Part
+SoundManager.loadGuns('sounds/LaserBeam0','sounds/Explosion0');
+SoundManager.maudio.pause();

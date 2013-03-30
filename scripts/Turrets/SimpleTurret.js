@@ -10,10 +10,7 @@ factory['Turret'] = Class.extend({
 		y: 550
 	},
 
-	dir: {
-		x: -1,
-		y: -1
-	},
+	dir: new Vec2(0,-1),
 
     angle: 0,
 	//6 bullets per sec
@@ -27,10 +24,10 @@ factory['Turret'] = Class.extend({
 
     update: function() {
 		
-		
-		this.dir.x = InputEngine.mouse.x - this.pos.x;
-		this.dir.y = InputEngine.mouse.y - this.pos.y;
-		
+		this.dir.Set(InputEngine.mouse.x - this.pos.x,
+					InputEngine.mouse.y - this.pos.y);
+		this.dir.Normalize();
+
 		//Must use dir insted
 		if (this._fireTrigger && this._fireCool == 0) {
 			this.__fire();
@@ -45,16 +42,21 @@ factory['Turret'] = Class.extend({
     },
 
 	draw: function(ctx) {
-		var rad = -Math.atan(this.dir.x/this.dir.y);
+		var rad = Geometry.vecToRad(this.dir.x, this.dir.y);
 		Drawer.image( this.img, this.pos.x, this.pos.y, rad, 
 						this.size.x, this.size.y);
 	},	
 
 	//DRAFT-part START
 	__fire: function() {
-		GameEngine.spawn( new factory['Bullet'](this.pos.x,this.pos.y,
-													this.dir.x,this.dir.y));
-		SoundManager.playSound('sounds/LaserBeam0');
+
+		GameEngine.spawn( new factory['Bullet'](
+					this.pos.x + (this.size.x/2) * this.dir.x,
+					this.pos.y + (this.size.y/2) * this.dir.y,
+					this.dir.x,this.dir.y
+				));
+
+		SoundManager.playGun(0);
 		this._fireCool = this._fireRate;
 	
 

@@ -27,13 +27,15 @@ GameEngine = {
 
 		this.canvas = canvas;
 		this.ctx = canvas.getContext('2d');
-	
+
+		//DRAFT
+		Drawer.useAtlas('atlas/atlas');
+		
 		PhysicsEngine.addContactListener({
 			
 			BeginContact: function(A,B) {
 				if( A.GetUserData().id == 'bullet' ) {
-					B.GetUserData().ent.kill();
-					A.GetUserData().ent.kill();
+					A.GetUserData().ent.onImpact(B.GetUserData().ent);
 				}
 			}
 
@@ -105,7 +107,7 @@ GameEngine = {
 
 		for (var i=0; i < dead.length; i++) {
 			
-			if (ent[dead[i]].physBody !== null) {
+			if (ent[dead[i]].physBody) {
 				PhysicsEngine.removeBodyAsObj(ent[dead[i]].physBody);			
 			}
 			ent.splice(dead[i], 1);
