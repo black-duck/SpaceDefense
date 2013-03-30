@@ -5,9 +5,15 @@ factory['SimpleShip'] = Class.extend({
 	_killed: false,
 
     physBody: null,
+	lifeBar: null,
 
 	speed: 60,
+<<<<<<< HEAD
 	hitpoints: 2,
+=======
+	hitpoints: 10,
+	maxHitpoints: 10,
+>>>>>>> 10459f3e050b26ca63422542d115b117b3a48483
 
 	size: {
 		x: 38,
@@ -52,6 +58,13 @@ factory['SimpleShip'] = Class.extend({
 		vec.Normalize();
 		vec.Multiply(this.speed);
 		this.physBody.SetLinearVelocity(vec);
+
+		this.lifeBar = GameEngine.spawn( 
+				new factory.Lifebar( this.pos.x, this.pos.x, 
+									{ offset: {	x:-this.size.x/2, 
+												y:-this.size.y/2 } 
+									})
+				);
 	
 	},
 
@@ -67,6 +80,8 @@ factory['SimpleShip'] = Class.extend({
 			var pPos = this.physBody.GetPosition();
 			this.pos.x = pPos.x;
 			this.pos.y = pPos.y;
+
+			this.lifeBar.setPos(pPos.x, pPos.y);
 		}
 
 		if (this.hitpoints <= 0) {
@@ -91,9 +106,16 @@ factory['SimpleShip'] = Class.extend({
 		
 		this._frameIter = (this._frameIter + 0.2) % this.img.length;
 	},
+	
+	damage: function(amount) {
+		this.hitpoints -= amount;
+		this.lifeBar.setRatio(this.hitpoints/this.maxHitpoints);
+		this.lifeBar.show();
+	},
 
 	kill: function() {
 		this._killed= true;	
+		this.lifeBar.kill();
 	}
     
 

@@ -1,9 +1,16 @@
 factory['Turret'] = Class.extend({ 
 
+	_killed: false,
+	
+	physBody: null,
+
 	size: {
 		x: 30,
 		y: 40
 	},
+
+	width: 30,
+	height: 30,
 	
 	pos: {
 		x: 420,
@@ -13,6 +20,9 @@ factory['Turret'] = Class.extend({
 	dir: new Vec2(0,-1),
 
     angle: 0,
+	targetAngle: 0,
+	rotationSpeed: 2.1,
+
 	//6 bullets per sec
 	_fireRate: (1000/6),
 
@@ -22,10 +32,33 @@ factory['Turret'] = Class.extend({
 
 	img: assets['turret'],
 
+	init: function( x, y, settings) {
+	
+		x = this.pos.x;
+		y = this.pos.y;
+		this.physBody = PhysicsEngine.addBody({
+						
+						id: 'Turret',
+						x: x,
+						y: y,
+						userData: { id: 'Turret',
+									ent: this },
+						angle: Geometry.vecToRad(this.dir.x, this.dir.y),
+						halfWidth: this.width/2,
+						halfHeight: this.height/2,
+		});
+
+
+
+	},
+
     update: function() {
 		
-		this.dir.Set(InputEngine.mouse.x - this.pos.x,
-					InputEngine.mouse.y - this.pos.y);
+		//getting angular rotation	
+		var pAng = this.physBody.GetAngle();
+		
+		this.angle = pAng;
+		this.dir.Set(Math.cos(pAng - Math.PI/2), Math.sin(pAng -  Math.PI/2));
 		this.dir.Normalize();
 
 		//Must use dir insted
@@ -39,24 +72,39 @@ factory['Turret'] = Class.extend({
 				this._fireCool = 0;
 			}
 		}
+		
+		//Turn physic body
+		if (this.targetAngle > this.angle) {
+			this.physBody.SetAngularVelocity(this.rotationSpeed);
+		}
+		else if (this.targetAngle < this.angle) {
+			this.physBody.SetAngularVelocity(-this.rotationSpeed);
+		}
+		else {
+			this.physBody.SetAngularVelocity(0);
+		}
+
     },
 
-	draw: function(ctx) {
-		var rad = Geometry.vecToRad(this.dir.x, this.dir.y);
-		Drawer.image( this.img, this.pos.x, this.pos.y, rad, 
+	draw: function (ctx) {
+		Drawer.image( this.img, this.pos.x, this.pos.y, this.angle, 
 						this.size.x, this.size.y);
 	},	
+
+	turn: function (rads) {
+		this.targetAngle = rads % (2*Math.PI);
+	},
 
 	//DRAFT-part START
 	__fire: function() {
 
 		GameEngine.spawn( new factory['Bullet'](
-					this.pos.x + (this.size.x/2) * this.dir.x,
-					this.pos.y + (this.size.y/2) * this.dir.y,
+					this.pos.x + (5 + this.size.x/2) * this.dir.x,
+					this.pos.y + (5 + this.size.y/2) * this.dir.y,
 					this.dir.x,this.dir.y
 				));
 
-		SoundManager.playGun(0);
+		SoundManager.playSound('sounds/LaserBeam0');
 		this._fireCool = this._fireRate;
 	
 
