@@ -8,12 +8,9 @@ factory['SimpleShip'] = Class.extend({
 	lifeBar: null,
 
 	speed: 60,
-<<<<<<< HEAD
-	hitpoints: 2,
-=======
+
 	hitpoints: 10,
 	maxHitpoints: 10,
->>>>>>> 10459f3e050b26ca63422542d115b117b3a48483
 
 	size: {
 		x: 38,

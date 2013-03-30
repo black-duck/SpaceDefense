@@ -47,12 +47,7 @@ factory['Lifebar'] = Class.extend({
 	},
 
 	draw: function() {
-<<<<<<< HEAD
-		var ent = this._entity;
-		var liferate = this._entity.hitpoints / 2;//DRAFT: hard coded value
-		Drawer.rect(this.pos.x, this.pos.y, this.size.x, this.size.y, 'green');
-		Drawer.rect(this.pos.x, this.pos.y, liferate * this.size.x, this.size.y, 'green', 'green');
-=======
+
 		if (!this._hidden) {	
 			Drawer.rect(this.pos.x, this.pos.y, this.width, this.height, 'green');
 			Drawer.rect(this.pos.x, this.pos.y, this.liferatio * this.size.x, this.size.y, 'green', 'green');
@@ -75,7 +70,6 @@ factory['Lifebar'] = Class.extend({
 
 	hide: function() {
 		this._hidden = true;
->>>>>>> 10459f3e050b26ca63422542d115b117b3a48483
 	},
 
 	kill: function() {
