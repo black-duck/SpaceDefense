@@ -47,8 +47,10 @@ factory['SimpleShip'] = Class.extend({
 	                                     },
 	             				 angle: Geometry.vecToRad(this.dir.x, this.dir.y),
 	                             halfWidth: this.size.x/2,
-	                             halfHeight: this.size.y/2
-	 
+	                             halfHeight: this.size.y/2,
+								 
+							     groups: ['aliens'],
+								 collidesWith: ['humans','aliens']
 	                        });     
 		
 		var vec = new Vec2(this.dir.x, this.dir.y);

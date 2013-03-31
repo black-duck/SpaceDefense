@@ -47,8 +47,10 @@ factory['Bullet'] = Class.extend({
 	                                     },
 	            				 angle: Geometry.vecToRad(this.dir.x, this.dir.y), 
 	                             halfWidth: this.size.y/2,
-	                             halfHeight: this.size.x/2
-	 
+	                             halfHeight: this.size.x/2,
+								
+								 groups: ['humans'],
+								 collidesWith: ['aliens']	 
 	                        });     
 		
 		var vec = new Vec2(this.dir.x, this.dir.y);

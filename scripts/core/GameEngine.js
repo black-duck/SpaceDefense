@@ -34,11 +34,11 @@ GameEngine = {
 		PhysicsEngine.addContactListener({
 			
 			BeginContact: function(A,B) {
-				if (A.GetUserData().id == 'bullet') {
-					if (B.GetUserData().id != 'Turret') {
-						A.GetUserData().ent.onImpact(B.GetUserData().ent);
-				//		A.SetActive(false);
-					}
+				if (A.GetUserData().ent.onImpact) {
+					A.GetUserData().ent.onImpact(B.GetUserData().ent);
+				}
+				if (B.GetUserData().ent.onImpact) {
+					B.GetUserData().ent.onImpact(A.GetUserData().ent);
 				}
 			}
 
