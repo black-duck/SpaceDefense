@@ -5,16 +5,16 @@ factory['Turret'] = Class.extend({
 	physBody: null,
 
 	size: {
-		x: 30,
-		y: 40
+		x: 60,
+		y: 100
 	},
 
-	width: 30,
-	height: 30,
+	width: 60,
+	height: 100,
 	
 	pos: {
 		x: 420,
-		y: 550
+		y: 500
 	},
 
 	dir: new Vec2(0,-1),
