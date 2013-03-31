@@ -69,12 +69,10 @@ factory['SimpleShip'] = Class.extend({
 		vec.Multiply(this.speed);
 		this.physBody.SetLinearVelocity(vec);
 
-		this.lifeBar = GameEngine.spawn( 
-				new factory.Lifebar( this.pos.x, this.pos.x, 
-									{ offset: {	x:-this.size.x/2, 
-												y:-this.size.y/2 } 
-									})
-				);
+		this.lifeBar = GameEngine.spawn('Lifebar', this.pos.x, this.pos.x, 
+										{ offset: {	x:-this.size.x/2, 
+													y:-this.size.y/2 } 
+										});
 
         
         var plusOrMinus = Math.random() < 0.5 ? -1 : 1; 
@@ -107,11 +105,9 @@ factory['SimpleShip'] = Class.extend({
 		}
 
 		if (this.hitpoints <= 0) {
-			GameEngine.spawn( new factory['Explosion'](this.pos.x, this.pos.y, 
-														{width: this.size.x,
-															height: this.size.y}
-							
-												) );
+			GameEngine.spawn('Explosion',this.pos.x, this.pos.y, 
+													{ width: this.size.x,
+													  height: this.size.y });
 			this.kill();
 		}
  
@@ -131,11 +127,11 @@ factory['SimpleShip'] = Class.extend({
 
     __fire: function() {
 
-        GameEngine.spawn( new factory['Bullet'](
+        GameEngine.spawn( 'Bullet',
 					this.pos.x + (5 + this.size.x/2) * this.dirshoot.x,
 					this.pos.y + (5 + this.size.y/2) * this.dirshoot.y,
-					this.dirshoot.x,this.dirshoot.y
-				));
+					this.dirshoot.x, this.dirshoot.y
+				);
         
 		SoundManager.playSound('sounds/LaserBeam1');
 		this._fireCool = this._fireRate;

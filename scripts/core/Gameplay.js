@@ -99,7 +99,7 @@ Spawn = Class.extend({
             exit = arguments[2];
         }
 
-        GameEngine.spawn(new factory[npc](entry.x, entry.y, exit.x - entry.x, exit.y - entry.y));
+        GameEngine.spawn(npc,entry.x, entry.y, exit.x - entry.x, exit.y - entry.y);
 
     }
 
@@ -124,7 +124,7 @@ Gameplay = {
     init: function() {
 
         if (Player0.playing) {
-            Player0.turret = GameEngine.spawn(new factory['Turret']());
+            Player0.turret = GameEngine.spawn('Turret');
         }
 
         spawn1 = new Spawn("SimpleShip", 1);

@@ -76,16 +76,14 @@ factory['Asteroid'] = Class.extend({
 		if (this.hitpoints <= 0) {
 			
 			if (this.maxHitpoints > 2) {
-			var clone1 = GameEngine.spawn( 
-					new factory['Asteroid'](this.pos.x + 10, this.pos.y));
+			var clone1 = GameEngine.spawn('Asteroid',this.pos.x + 10, this.pos.y);
 			clone1.dir.Set(this.dir.x,this.dir.y);
 			clone1.size.x = this.size.x / 2;
 			clone1.size.y = this.size.y / 2;
 			clone1.maxHitpoints = this.maxHitpoints/3;
 			clone1.hitpoints = this.maxHitpoints/3;
 	
-			var clone2 = GameEngine.spawn( 
-					new factory['Asteroid'](this.pos.x - 10, this.pos.y));
+			var clone2 = GameEngine.spawn('Asteroid',this.pos.x - 10, this.pos.y);
 			clone2.dir.Set(this.dir.x,this.dir.y);
 			clone2.size.x = this.size.x / 2;
 			clone2.size.y = this.size.y / 2;

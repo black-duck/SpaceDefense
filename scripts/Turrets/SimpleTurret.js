@@ -122,11 +122,11 @@ factory['Turret'] = Class.extend({
 	//DRAFT-part START
 	__fire: function() {
 
-		GameEngine.spawn( new factory['Bullet'](
+		GameEngine.spawn('Bullet',
 					this.pos.x + (5 + this.size.x/2) * this.dir.x,
 					this.pos.y + (5 + this.size.y/2) * this.dir.y,
 					this.dir.x,this.dir.y
-				));
+				);
 
 		SoundManager.playSound('sounds/LaserBeam0');
 		this._fireCool = this._fireRate;
