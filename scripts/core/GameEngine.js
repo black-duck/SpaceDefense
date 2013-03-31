@@ -113,11 +113,20 @@ GameEngine = {
 
 	},
 
-	//DRAFT spawn must use String of Classname as param
-	spawn: function (Entity) {
+	
+	spawn: function (entityName) {
+	
+		var args = Array.prototype.slice.call(arguments, 1);
+
+		var Temp = function(){}
+		var inst, ent;
+
+		Temp.prototype = factory[entityName].prototype;
+		inst = new Temp;
+		ent = factory[entityName].apply(inst, args); 
 		
-		this.Entities.push(Entity); 
-		return Entity;
+		this.Entities.push(ent);
+		return ent;
 	},
 	
 
