@@ -6,7 +6,7 @@ Player0 = {
 
 
 assets = { 
-	'background': 'img/black.jpg',
+	'background': 'img/stars.png',
 	'turret'	: 'img/turret.jpg',
 	'ship' 		: 'img/ship.png',
 	'bullet'	: 'img/bullet.png'

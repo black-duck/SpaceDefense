@@ -218,4 +218,4 @@ SoundManager = {
 	}	
 }
 //Draft
-SoundManager.init(['sounds/LaserBeam0', 'sounds/Explosion0']);
+SoundManager.init(['sounds/LaserBeam0', 'sounds/LaserBeam1', 'sounds/Explosion0']);
