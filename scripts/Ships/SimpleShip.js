@@ -152,6 +152,7 @@ factory['SimpleShip'] = Class.extend({
 	},
 	
 	damage: function(amount) {
+        this.pos.y -= 3;
 		this.hitpoints -= amount;
 		this.lifeBar.setRatio(this.hitpoints/this.maxHitpoints);
 		this.lifeBar.show();
