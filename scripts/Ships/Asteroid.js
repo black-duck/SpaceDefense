@@ -21,6 +21,8 @@ factory['Asteroid'] = Class.extend({
 
 	dir: new Vec2(1, 1),
 
+    rotatedir: new Vec2(1, 1),
+
 	img: 'img/asteroid.png',
 	
     init: function(x, y, settings) {
@@ -37,7 +39,7 @@ factory['Asteroid'] = Class.extend({
 	                        	 userData: { id: 'Asteroid',
 	                            	         ent: this 
 	                                     },
-	             				 angle: Geometry.vecToRad(this.dir.x, this.dir.y),
+	             				 angle: Geometry.vecToRad(this.rotatedir.x, this.rotatedir.y),
 	                             halfWidth: this.size.x/2,
 	                             halfHeight: this.size.y/2,
 
@@ -53,7 +55,16 @@ factory['Asteroid'] = Class.extend({
 
 	update: function() {
 
-		this.physBody.SetAngle(-Math.atan(this.dir.x/this.dir.y));
+
+        //getting angular rotation	
+		var pAng = this.physBody.GetAngle();
+		
+        pAng += 0.0025;
+		this.angle = pAng;
+		this.rotatedir.Set(Math.cos(pAng - Math.PI/2), Math.sin(pAng -  Math.PI/2));
+		this.rotatedir.Normalize();
+
+		this.physBody.SetAngle(-Math.atan(this.rotatedir.x/this.rotatedir.y));
 		this.physBody.SetLinearVelocity(this.dir);
 		
 		if (this.physBody != null) {
