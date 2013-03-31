@@ -26,6 +26,23 @@ Map = {
             x: 800,
             y: 500
         }
+    },
+
+    attacks: {
+        1: {
+            x: 50,
+            y: 600
+        },
+
+        2: {
+            x: 400,
+            y: 600
+        },
+
+        3: {
+            x: 750,
+            y: 600
+        }
     }
 }
 
@@ -160,9 +177,9 @@ Gameplay = {
 
         // A simple example.
         // First, we build our spawn objects.
-        instantspawnoffive = new Spawn("SimpleShip", 6, Map.entries['2'], Map.exits['2']);
+        instantspawnoffive = new Spawn("Asteroid", 2, Map.entries['3'], Map.attacks['3']);
         repeativespawnoftwo = new Spawn("SimpleShip", 2); 
-        instantspawnoffive2 = new Spawn("SimpleShip", 6, Map.entries['2'], Map.exits['2']);
+        instantspawnoffive2 = new Spawn("Asteroid", 2, Map.entries['1'], Map.attacks['1']);
 
         // Next, we trigger them.
         // Execute spawn of five instantly. 
