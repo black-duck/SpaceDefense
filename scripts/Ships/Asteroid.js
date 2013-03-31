@@ -39,8 +39,10 @@ factory['Asteroid'] = Class.extend({
 	                                     },
 	             				 angle: Geometry.vecToRad(this.dir.x, this.dir.y),
 	                             halfWidth: this.size.x/2,
-	                             halfHeight: this.size.y/2
-	 
+	                             halfHeight: this.size.y/2,
+
+								 groups: ['aliens']
+								 
 	                        });     
 		
 		this.dir.Normalize();
