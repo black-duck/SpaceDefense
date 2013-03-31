@@ -134,7 +134,7 @@ factory['SimpleShip'] = Class.extend({
         GameEngine.spawn( new factory['Bullet'](
 					this.pos.x + (5 + this.size.x/2) * this.dirshoot.x,
 					this.pos.y + (5 + this.size.y/2) * this.dirshoot.y,
-					this.dirshoot.x,this.dirshoot.y
+					this.dirshoot.x,this.dirshoot.y, "red"
 				));
         
 		SoundManager.playSound('sounds/LaserBeam1');

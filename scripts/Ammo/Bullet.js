@@ -57,6 +57,12 @@ factory['Bullet'] = Class.extend({
 		vec.Normalize();
 		vec.Multiply(this.speed);
 		this.physBody.SetLinearVelocity(vec);
+
+        if (arguments.length == 5) {
+            if (arguments[4] == "red") {
+                this.img = assets['bullet-red'];
+            }
+        }
 	
 	},
 
