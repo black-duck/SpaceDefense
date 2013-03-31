@@ -7,9 +7,10 @@ Player0 = {
 
 assets = { 
 	'background': 'img/stars.png',
-	'turret'	: 'img/turret.jpg',
+	'turret'	: 'img/turret1.png',
 	'ship' 		: 'img/ship.png',
-	'bullet'	: 'img/bullet.png'
+	'bullet'	: 'img/bullet.png',
+    'bullet-red': 'img/bullet-red.png'
 }
 
 factory = {};
