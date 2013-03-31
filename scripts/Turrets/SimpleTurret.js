@@ -43,12 +43,14 @@ factory['Turret'] = Class.extend({
 						id: 'Turret',
 						x: x,
 						y: y,
-						type: 'kinematic',
 						userData: { id: 'Turret',
 									ent: this },
 						angle: Geometry.vecToRad(this.dir.x, this.dir.y),
 						halfWidth: this.width/2,
 						halfHeight: this.height/2,
+						
+						group: ['humans'],
+						collidesWith: ['aliens']
 		});
 
 
