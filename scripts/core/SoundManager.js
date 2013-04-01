@@ -99,7 +99,11 @@ SoundManager = {
 		
 	maudio: new Audio(),
 	
+	mTempAudio: new Audio(),
+	
 	counter: 0,
+	
+	fadeTime: 5,
 	
 	//Load the playlist
 	loadMusic: function(array){
@@ -108,22 +112,72 @@ SoundManager = {
 		this.maudio.autoplay = false;
 		this.maudio.muted = this.globalMute;
 		this.maudio.volume = this.musicVolume;
+		this.maudio.next = false;
+		this.maudio.end = this.maudio.duration;
 		this.maudio.addEventListener("ended",function(){
-			SoundManager.nextTrack();
+			SoundManager.maudio = SoundManager.mTempAudio;
+			SoundManager.mTempAudio = null;
+		});
+		this.maudio.addEventListener("timeupdate",function(){
+			var d = this.end - this.currentTime;
+			var c = this.currentTime;
+			if(d <= SoundManager.fadeTime){
+				if(d < 0){
+					this.currentTime = this.duration;
+				}
+				else{
+					this.volume = (d / SoundManager.fadeTime) * SoundManager.musicVolume;
+					if(this.next === false){
+						this.next = true;
+						SoundManager.nextTrack();
+					}
+				}
+			}
+			if(c <= SoundManager.fadeTime)
+				this.volume = (c / SoundManager.fadeTime) * SoundManager.musicVolume;	
+			if(c > SoundManager.fadeTime && d > SoundManager.fadeTime)
+				this.volume = SoundManager.musicVolume;
 		});
 	},
 	
 	//Next track please!
 	nextTrack: function(){
+		if(!this.maudio.next){
+			this.maudio.next = true;
+			this.maudio.end = this.maudio.currentTime + SoundManager.fadeTime;
+		}
 		this.counter = (this.counter + 1) % this.musicArray.length;
-		this.maudio = Loader.load(this.musicArray[this.counter] + '.' + this.audioType);
-		this.maudio.autoplay = false;
-		this.maudio.muted = this.globalMute;
-		this.maudio.volume = this.musicVolume;
-		this.maudio.addEventListener("ended",function(){
-			SoundManager.nextTrack();
+		this.mTempAudio = Loader.load(this.musicArray[this.counter] + '.' + this.audioType);
+		this.mTempAudio.autoplay = false;
+		this.mTempAudio.muted = this.globalMute;
+		this.mTempAudio.volume = this.musicVolume;
+		this.mTempAudio.next = false;
+		this.mTempAudio.end = this.mTempAudio.duration;
+		this.mTempAudio.addEventListener("timeupdate",function(){
+			var d = this.end - this.currentTime;
+			var c = this.currentTime;
+			if(d <= SoundManager.fadeTime){
+				if(d < 0){
+					this.currentTime = this.duration;
+				}
+				else{
+					this.volume = (d / SoundManager.fadeTime) * SoundManager.musicVolume;
+					if(this.next === false){
+						this.next = true;
+						SoundManager.nextTrack();
+					}
+				}
+			}
+			if(c <= SoundManager.fadeTime)
+				this.volume = (c / SoundManager.fadeTime) * SoundManager.musicVolume;	
+			if(c > SoundManager.fadeTime && d > SoundManager.fadeTime)
+				this.volume = SoundManager.musicVolume;
 		});
-		this.playMusic()
+		this.mTempAudio.addEventListener("ended",function(){
+			SoundManager.maudio = SoundManager.mTempAudio;
+			SoundManager.mTempAudio = null;
+		});
+		this.mTempAudio.play();
 	},
 	
 	//Play the music
@@ -218,4 +272,6 @@ SoundManager = {
 	}	
 }
 //Draft
-SoundManager.init(['sounds/LaserBeam0', 'sounds/Explosion0']);
+SoundManager.init(['sounds/LaserBeam0', 'sounds/LaserBeam1', 'sounds/Explosion0']);
+SoundManager.loadMusic(['sounds/Fifty_Percent_-_Bright_Air', 'sounds/Air_Attack']);
+SoundManager.playMusic();

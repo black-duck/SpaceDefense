@@ -23,10 +23,6 @@
 	<script type="text/javascript" src="scripts/Ships/Asteroid.js"></script>  
 	<script type="text/javascript" src="scripts/core/start.js"></script> 
 	<script type="text/javascript" src="http://code.jquery.com/jquery.min.js"></script>
-	<script type="text/javascript">
-		SoundManager.loadMusic(['sounds/Fifty_Percent_-_Bright_Air']);
-		//SoundManager.playMusic();
-	</script>
 	<!--//effect scripts-->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
@@ -95,6 +91,7 @@
 		var h = holder.innerHeight();
 		var w = 800* (h/600);
 		holder.html('<canvas id="canvas" width="'+w+'px" height="'+h+'px"></canvas>');
+		SoundManager.nextTrack();
         startGame();
     });
     $("#StartMusic").click(function () {
