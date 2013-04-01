@@ -1,0 +1,12 @@
+{
+	"name": "SpaceDefence-server",
+	"version": "0.0.1",
+	"description": "Space Defence multiplayer server",
+	"private": true,
+	"main" : "main.js",
+
+	"dependencies": {
+		"express": "3.x"
+	}
+
+}
