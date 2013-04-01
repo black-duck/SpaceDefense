@@ -5,16 +5,16 @@ factory['Turret'] = Class.extend({
 	physBody: null,
 
 	size: {
-		x: 30,
-		y: 40
+		x: 60,
+		y: 100
 	},
 
-	width: 30,
-	height: 30,
+	width: 60,
+	height: 100,
 	
 	pos: {
 		x: 420,
-		y: 550
+		y: 500
 	},
 
 	dir: new Vec2(0,-1),
@@ -43,12 +43,14 @@ factory['Turret'] = Class.extend({
 						id: 'Turret',
 						x: x,
 						y: y,
-						type: 'kinematic',
 						userData: { id: 'Turret',
 									ent: this },
 						angle: Geometry.vecToRad(this.dir.x, this.dir.y),
 						halfWidth: this.width/2,
 						halfHeight: this.height/2,
+						
+						group: ['humans'],
+						collidesWith: ['aliens']
 		});
 
 
@@ -120,11 +122,11 @@ factory['Turret'] = Class.extend({
 	//DRAFT-part START
 	__fire: function() {
 
-		GameEngine.spawn( new factory['Bullet'](
+		GameEngine.spawn('Bullet',
 					this.pos.x + (5 + this.size.x/2) * this.dir.x,
 					this.pos.y + (5 + this.size.y/2) * this.dir.y,
 					this.dir.x,this.dir.y
-				));
+				);
 
 		SoundManager.playSound('sounds/LaserBeam0');
 		this._fireCool = this._fireRate;

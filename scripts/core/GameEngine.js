@@ -6,10 +6,11 @@ Player0 = {
 
 
 assets = { 
-	'background': 'img/black.jpg',
-	'turret'	: 'img/turret.jpg',
+	'background': 'img/stars.png',
+	'turret'	: 'img/turret1.png',
 	'ship' 		: 'img/ship.png',
-	'bullet'	: 'img/bullet.png'
+	'bullet'	: 'img/bullet.png',
+    'bullet-red': 'img/bullet-red.png'
 }
 
 factory = {};
@@ -34,11 +35,11 @@ GameEngine = {
 		PhysicsEngine.addContactListener({
 			
 			BeginContact: function(A,B) {
-				if (A.GetUserData().id == 'bullet') {
-					if (B.GetUserData().id != 'Turret') {
-						A.GetUserData().ent.onImpact(B.GetUserData().ent);
-				//		A.SetActive(false);
-					}
+				if (A.GetUserData().ent.onImpact) {
+					A.GetUserData().ent.onImpact(B.GetUserData().ent);
+				}
+				if (B.GetUserData().ent.onImpact) {
+					B.GetUserData().ent.onImpact(A.GetUserData().ent);
 				}
 			}
 
@@ -113,11 +114,20 @@ GameEngine = {
 
 	},
 
-	//DRAFT spawn must use String of Classname as param
-	spawn: function (Entity) {
+	
+	spawn: function (entityName) {
+	
+		var args = Array.prototype.slice.call(arguments, 1);
+
+		var Temp = function(){}
+		var inst, ent;
+
+		Temp.prototype = factory[entityName].prototype;
+		inst = new Temp;
+		ent = factory[entityName].apply(inst, args); 
 		
-		this.Entities.push(Entity); 
-		return Entity;
+		this.Entities.push(ent);
+		return ent;
 	},
 	
 

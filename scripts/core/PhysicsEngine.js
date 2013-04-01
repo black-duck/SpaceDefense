@@ -16,7 +16,10 @@ RevoluteJointDef =  Box2D.Dynamics.Joints.b2RevoluteJointDef;
 PhysicsEngine = {
   
 	world: null,
-  
+	
+	groups: {}, //collision groups
+	__groupsOffset: 0,
+
 	init: function () {
 
 		//DRAFT - better solution needed
@@ -24,11 +27,20 @@ PhysicsEngine = {
 		Box2D.Common.b2Settings.b2_maxTranslationSquared = 20.0 * 20.0;
 
 		this.world = new World(
-    		new Vec2(0, 0), //gravity    						
+    		new Vec2(0, 0), //zero-gravity    						
     		true ); //don't allow sleep
+		
+		this.addGroup('humans');
+		this.addGroup('aliens');
 
 	},
 
+	addGroup: function (name) {
+		var MAX_GROUPS = 16;
+		
+		this.groups[name] = (0x01 << this.__groupsOffset);
+		this.__groupsOffset++;
+	},
 
 	addContactListener: function (callbacks) {
 
@@ -96,16 +108,40 @@ PhysicsEngine = {
 
 		var body = this.registerBody(bodyDef);
 		var fixtureDefinition = new FixtureDef;
+		
 
-	   	if (entityDef.density !== undefined) {
-			fixtureDefinition.density = entityDef.density; 
+		if (entityDef.groups && entityDef.groups.length) {
+			fixtureDefinition.filter.categoryBits = 0x0000;
+			for (var i = 0; i < entityDef.groups.length; i++) {
+				fixtureDefinition.filter.categoryBits |= this.groups[entityDef.groups[i]];
+			}			
 		}
 		else {
-			fixtureDefinition.density = 1.0;
+			fixtureDefinition.filter.categoryBits = 0x0001;
+		}
+
+		if (entityDef.collidesWith && entityDef.collidesWith.length) {
+			fixtureDefinition.filter.maskBits = 0x0000;
+			for (var i = 0; i < entityDef.collidesWith.length; i++) {
+				fixtureDefinition.filter.maskBits |= this.groups[entityDef.collidesWith[i]];
+			}
+		}
+		else {
+			fixtureDefinition.filter.maskBits = 0xFFFF;
 		}
 		
+		if (entityDef.ignore && entityDef.ignore.length) {
+			for (var i = 0; i < entityDef.ignore.length; i++) {
+				fixtureDefinition.filter.maskBits &= ~this.groups[entityDef.ignore[i]];
+			}
+			console.log(fixtureDefinition.filter.maskBits);
+
+		}
+		
+		fixtureDefinition.density = 1.0;
 		fixtureDefinition.friction = 0; 
 		fixtureDefinition.restitution = 0; 
+
 
 		fixtureDefinition.shape = new PolygonShape;
 		fixtureDefinition.shape.SetAsBox(entityDef.halfWidth, entityDef.halfHeight);

@@ -1,34 +1,3 @@
-// The points in this dictionary describes the NPC's direction.
-Map = {
-
-    entries: {
-        1: {
-            x: 50,
-            y: -10
-        },
-        2: {
-            x: 400,
-            y: -10
-        },
-        3: {
-            x: 750,
-            y: -10
-        }
-    },
-
-    exits: {
-        1: {
-            x: 1,
-            y: 500
-        },
-
-        2: {
-            x: 800,
-            y: 500
-        }
-    }
-}
-
 // Class that describes a spawn.
 // Every new spawn is buildind the 'instant' method on initialization.
 // The 'instant' method will be executed on the specified times during the
@@ -130,7 +99,7 @@ Spawn = Class.extend({
             exit = arguments[2];
         }
 
-        GameEngine.spawn(new factory[npc](entry.x, entry.y, exit.x - entry.x, exit.y - entry.y));
+        GameEngine.spawn(npc,entry.x, entry.y, exit.x - entry.x, exit.y - entry.y);
 
     }
 
@@ -155,22 +124,13 @@ Gameplay = {
     init: function() {
 
         if (Player0.playing) {
-            Player0.turret = GameEngine.spawn(new factory['Turret']());
+            Player0.turret = GameEngine.spawn('Turret');
         }
 
-        // A simple example.
-        // First, we build our spawn objects.
-        instantspawnoffive = new Spawn("SimpleShip", 6, Map.entries['2'], Map.exits['2']);
-        repeativespawnoftwo = new Spawn("SimpleShip", 2); 
-        instantspawnoffive2 = new Spawn("SimpleShip", 6, Map.entries['2'], Map.exits['2']);
-
-        // Next, we trigger them.
-        // Execute spawn of five instantly. 
-        instantspawnoffive.execute();
-        // Execute spawn of two after 3 seconds, each one second for 10 times. 
-        repeativespawnoftwo.execute(10, 1000, 3000);
-        // Execute again spawn of five after 7 seconds. 
-        instantspawnoffive2.execute(7000);
+        spawn1 = new Spawn("SimpleShip", 1);
+        spawn2 = new Spawn("Asteroid", 1);
+        spawn1.execute(10, 2000, 1000);
+        spawn2.execute(1, 2000, 10000); 
 
 	}
 }
