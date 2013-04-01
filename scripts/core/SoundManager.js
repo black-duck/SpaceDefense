@@ -273,8 +273,5 @@ SoundManager = {
 }
 //Draft
 SoundManager.init(['sounds/LaserBeam0', 'sounds/LaserBeam1', 'sounds/Explosion0']);
-<<<<<<< HEAD
 SoundManager.loadMusic(['sounds/Fifty_Percent_-_Bright_Air', 'sounds/Air_Attack']);
 SoundManager.playMusic();
-=======
->>>>>>> be15b1222908ec66fb2675076424cb8ef80fbec9
