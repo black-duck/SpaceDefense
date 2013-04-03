@@ -36,7 +36,10 @@ SoundManager = {
 		else if (typeof webkitAudioContext !== "undefined")
 			this.context = new webkitAudioContext();
 		else
-			console.log('AudioContext not supported. :(');		
+			console.log('AudioContext not supported. :(');	
+	
+		//DRAFT
+		if(this.context === null) return;
 		
 		//Create a volumeNode of AudioContext
 		this.volumeNode = this.context.createGainNode();
@@ -52,7 +55,9 @@ SoundManager = {
 	
 	//Play sound, if loaded - DRAFT
 	playSound: function(src){
-	
+		//DRAFT
+		if(this.context === null) return;
+		
 		var res = this._searchSound(src);
 		
 		if(res == -1){
