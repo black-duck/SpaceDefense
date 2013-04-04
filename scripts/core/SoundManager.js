@@ -19,8 +19,12 @@ SoundManager = {
 	
 	soundBuffers: {},
 	
+	soundArrays: {},
+	
+	counters: {},
+	
 	//Init Function	
-	init: function(array){
+	init: function(array1, array2){
 	
 		//Define the type of audio supported.
 		var audio =  new Audio();
@@ -38,8 +42,8 @@ SoundManager = {
 		else
 			console.log('AudioContext not supported. :(');	
 	
-		//DRAFT
-		if(this.context === null) return;
+		//If AudioContext is not supported
+		if(this.context != null){
 		
 		//Create a volumeNode of AudioContext
 		this.volumeNode = this.context.createGainNode();
@@ -48,53 +52,93 @@ SoundManager = {
 		
 		this.volumeNode.connect(this.context.destination);
 		
+		
+		}
+		
 		//Preload sounds - DRAFT
-		for(var i = 0; i < array.length; i++)
-			this._loadSound(array[i]);
+		for(var i = 0; i < array1.length; i++)
+			this._loadSound(array1[i],array2[i]);
+		
+		
+		
 	},
 	
 	//Play sound, if loaded - DRAFT
 	playSound: function(src){
 		//DRAFT
-		if(this.context === null) return;
+		if(this.context != null){// return;
 		
-		var res = this._searchSound(src);
-		
-		if(res == -1){
-			console.log('Not Loaded Yet');//DRAFT
-			return;
+			var res = this._searchSound(src);
+			//DRAFT
+			if(res == -1){
+				console.log('Not Loaded Yet');
+				return;
+			}
+			
+			var source = this.context.createBufferSource();
+			source.buffer = this.soundBuffers[this.sounds[res]];
+			source.loop = false;
+			source.connect(this.volumeNode);
+			source.noteOn(0);
 		}
-		
-		var source = this.context.createBufferSource();
-		source.buffer = this.soundBuffers[this.sounds[res]];
-		source.loop = false;
-		source.connect(this.volumeNode);
-		source.noteOn(0);
+		else{
+			var res = this._searchSound(src);
+			//DRAFT
+			if(res == -1){
+				console.log('Not Loaded Yet');
+				return;
+			}
+			var counter = this.counters[src];
+			var audio = this.soundArrays[src][counter];
+			audio.autoplay = false;
+			audio.muted = this.globalMute;
+			audio.volume = this.effectsVolume;
+			audio.play();
+			this.counters[src] = (this.counters[src] + 1) % this.soundArrays[src].length;
+		}
 	},
 	
 	//Return the index of src in sounds if loaded
 	_searchSound: function(src){
-		return this.sounds.indexOf(src);	
+		return this.sounds.indexOf(src);
 	},
 	
 	
 	//Load the sounds - DRAFT
-	_loadSound: function(src){
-		var request = new XMLHttpRequest();
-		
-		request.open('GET', src + '.' + this.audioType, true);
-		request.responseType = 'arraybuffer';
-		request.addEventListener('load',function(event){
-		
-			var request = event.target;
-			var buffer = SoundManager.context.createBuffer(request.response, false);
-			SoundManager.soundBuffers[src] = buffer;
-			SoundManager.sounds.push(src);
-			SoundManager.soundsLoaded.push(true);
+	_loadSound: function(src, sps){ //sps = Sounds per second
+		if(this.context != null){
+			var request = new XMLHttpRequest();
 			
-		}, false);
-		
-		request.send();
+			request.open('GET', src + '.' + this.audioType, true);
+			request.responseType = 'arraybuffer';
+			request.addEventListener('load',function(event){
+			
+				var request = event.target;
+				var buffer = SoundManager.context.createBuffer(request.response, false);
+				SoundManager.soundBuffers[src] = buffer;
+				SoundManager.sounds.push(src);
+				SoundManager.soundsLoaded.push(true);
+				
+			}, false);
+			
+			request.send();
+		}
+		else{
+			var audio = Loader.load(src + '.' + SoundManager.audioType);
+			var length = Math.ceil(sps * this.duration);
+			//DRAFT
+			length = 10;
+			var array = new Array(length);
+			for(var i = 0; i < length; i++){
+				array[i] = Loader.load(src + '.' + SoundManager.audioType);
+				array[i].autoplay = false;
+				array[i].muted = SoundManager.globalMute;
+				array[i].volume = SoundManager.effectsVolume;
+			}
+			SoundManager.soundArrays[src] = array;
+			SoundManager.counters[src] = 0;
+			SoundManager.sounds.push(src);
+		}
 	},
 	
 	//Music Variables
@@ -277,6 +321,6 @@ SoundManager = {
 	}	
 }
 //Draft
-SoundManager.init(['sounds/LaserBeam0', 'sounds/LaserBeam1', 'sounds/Explosion0']);
+SoundManager.init(['sounds/LaserBeam0', 'sounds/LaserBeam1', 'sounds/Explosion0'], [10, 10, 10]);
 SoundManager.loadMusic(['sounds/Fifty_Percent_-_Bright_Air', 'sounds/Air_Attack']);
 SoundManager.playMusic();
