@@ -17,16 +17,19 @@ InputEngine = {
                 y: 0
         },
 
-
+		portPos: {
+					x:0, 
+					y:0
+		},
 		
         //-----------------------------
         setup: function (canvas) {
 		
 				
-                //move key bindings
-                InputEngine.bind(87, 'look-up');
-                InputEngine.bind(65, 'look-left');
-                InputEngine.bind(68, 'look-right');
+            //move key bindings
+            InputEngine.bind(87, 'look-up');
+            InputEngine.bind(65, 'look-left');
+            InputEngine.bind(68, 'look-right');
 
             //fire key bindings
             InputEngine.bind(81,'powerup-use');  //Q
@@ -54,8 +57,8 @@ InputEngine = {
 			return false;
 		}
  		var rect = canvas.getBoundingClientRect();
-		InputEngine.mouse.x = (event.clientX-rect.left)*Scale.x;
-        	InputEngine.mouse.y = (event.clientY-rect.top)*Scale.y;
+			InputEngine.mouse.x = (event.clientX-rect.left+InputEngine.portPos.x)*Scale.x;
+        	InputEngine.mouse.y = (event.clientY-rect.top+InputEngine.portPos.y)*Scale.y;
 		
 		if (action) {
         	InputEngine.actions[action] = true;
@@ -72,8 +75,8 @@ InputEngine = {
     	//make touch Event look like mouse event.
 		var rect = canvas.getBoundingClientRect();
 		InputEngine.actions['mousemove'] = true;
-		InputEngine.mouse.x = (event.targetTouches[0].clientX-rect.left) * Scale.x;
-       	InputEngine.mouse.y = (event.targetTouches[0].clientY-rect.top) * Scale.y;	
+		InputEngine.mouse.x = (event.targetTouches[0].clientX-rect.left+InputEngine.portPos.x) * Scale.x;
+       	InputEngine.mouse.y = (event.targetTouches[0].clientY-rect.top+InputEngine.portPos.y) * Scale.y;	
 		event.preventDefault();
 
 	},
@@ -81,15 +84,17 @@ InputEngine = {
     onMouseMove: function (event) {
        	var rect = canvas.getBoundingClientRect();
 		InputEngine.actions['mousemove'] = true;
-		InputEngine.mouse.x = (event.clientX-rect.left) * Scale.x;
-       	InputEngine.mouse.y = (event.clientY-rect.top) * Scale.y;	
+		InputEngine.mouse.x = ((event.clientX+InputEngine.portPos.x)-rect.left) * Scale.x;
+       	InputEngine.mouse.y = ((event.clientY+InputEngine.portPos.y)-rect.top) * Scale.y;	
 	},
 
 
       
     onKeyDown: function (event) {
-				
-    	var action = InputEngine.bindings[event.keyCode];
+		
+		event.preventDefault();		
+    	
+		var action = InputEngine.bindings[event.keyCode];
         	if (action) {
             	InputEngine.actions[action] = true;
 						
@@ -98,8 +103,10 @@ InputEngine = {
 
    
     onKeyUp: function (event) {
-
-    	var action = InputEngine.bindings[event.keyCode];
+		
+		event.preventDefault();	
+    	
+		var action = InputEngine.bindings[event.keyCode];
 
         if (action) {
         	InputEngine.actions[action] = false;

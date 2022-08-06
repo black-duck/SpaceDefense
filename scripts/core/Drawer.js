@@ -25,7 +25,9 @@ Drawer = {
 	yScale: 1,
 	xScaleHalf: 0.5,
 	yScaleHalf: 0.5,
-
+	
+	portPos:{x:0,y:0},
+	//portSize:{w:0,h:0},
 
 	init: function (canvas) {
 		this.canvas = canvas;
@@ -105,7 +107,13 @@ Drawer = {
 		this.xScaleHalf = x/2;
 		this.yScaleHalf = x/2;
 	},
-
+	
+	setPort: function(x,y){ 
+		this.portPos.x = x;
+		this.portPos.y = y;
+		
+	
+	},
 	//Draw a rectangle shape
 	//
 	//rect is an overloaded method
@@ -143,11 +151,17 @@ Drawer = {
 			ys = this.yScale,
 			xsh = this.xScaleHalf,
 			ysh = this.yScaleHalf;
-	
+			
+		var xp = this.portPos.x;
+			yp = this.portPos.y;
+			
+		x = x-xp;
+		y = y-yp;
+			
 		ctx.beginPath();
 		ctx.lineWidth = '1';	
 		ctx.strokeStyle = 'blue';
-		ctx.strokeRect(x * xs, y * ys, width * xs, height * ys);
+		ctx.strokeRect( x * xs, y * ys, width * xs, height * ys);
 		ctx.stroke();
 	},
 
@@ -159,11 +173,17 @@ Drawer = {
 			ys = this.yScale,
 			xsh = this.xScaleHalf,
 			ysh = this.yScaleHalf;
+			
+		var xp = this.portPos.x;
+			yp = this.portPos.y;
+			
+		x = x-xp;
+		y = y-yp;
 	
 		ctx.beginPath();
 		ctx.lineWidth = '1';	
 		ctx.strokeStyle = color;
-		ctx.strokeRect(x * xs, y * ys, width * xs, height * ys);
+		ctx.strokeRect( x * xs, y * ys, width * xs, height * ys);
 		ctx.stroke();
 
 
@@ -178,6 +198,12 @@ Drawer = {
 			xsh = this.xScaleHalf,
 			ysh = this.yScaleHalf;
 	
+		var xp = this.portPos.x;
+			yp = this.portPos.y;
+			
+		x = x-xp;
+		y = y-yp;
+		
 		ctx.beginPath();
 		ctx.lineWidth = '2';	
 		ctx.strokeStyle = color;
@@ -253,8 +279,13 @@ Drawer = {
 			yScale = this.yScale,
 			xScaleHalf = this.xScaleHalf,
 			yScaleHalf = this.yScaleHalf;
-
-
+		
+		var xp = this.portPos.x;
+		var yp = this.portPos.y;
+		
+		canvX = canvX-xp;
+		canvY = canvY-yp;
+		
 		if( arguments.length == 3) {
 			ctx.drawImage(img, xScale * canvX, xScale * canvY);
 		}
@@ -304,6 +335,12 @@ Drawer = {
 			ys = this.yScale,
 			xsh = this.xScaleHalf,
 			ysh = this.yScaleHalf;
+			
+		var xp = this.portPos.x;
+			yp = this.portPos.y;
+			
+		x = x-xp;
+		y = y-yp;
 		
 		var atlas, img, frame;
 		var ctx = this.ctx;
@@ -326,7 +363,13 @@ Drawer = {
 			ys = this.yScale,
 			xsh = this.xScaleHalf,
 			ysh = this.yScaleHalf;
-
+		
+		var xp = this.portPos.x;
+			yp = this.portPos.y;
+			
+		x = x-xp;
+		y = y-yp;
+			
 		var atlas, img, frame;
 		var ctx = this.ctx;
 
@@ -335,7 +378,7 @@ Drawer = {
 		f = atlas.frame;
 
 		ctx.save();
-		ctx.translate(x * xs, y * ys);
+		ctx.translate( x * xs, y * ys);
 		ctx.rotate(ang);
 		ctx.drawImage( img, f.x, f.y,
 							f.w, f.h,
@@ -353,6 +396,12 @@ Drawer = {
 			ys = this.yScale,
 			xsh = this.xScaleHalf,
 			ysh = this.yScaleHalf;
+			
+		var xp = this.portPos.x;
+			yp = this.portPos.y;
+			
+		x = x-xp;
+		y = y-yp;
 		
 		var atlas, img, frame;
 		var ctx = this.ctx;
@@ -360,7 +409,9 @@ Drawer = {
 		atlas = this._imgToAtlas[imgSrc];
 		img = Loader.load(atlas.img);
 		f = atlas.frame;
-
+		
+		
+		
 		ctx.drawImage(img, f.x, f.y, 
 							f.w, f.h, 
 							x * xs - (w * xsh), y * ys - (h * ysh), 
@@ -376,6 +427,12 @@ Drawer = {
 			ys = this.yScale,
 			xsh = this.xScaleHalf,
 			ysh = this.yScaleHalf;
+			
+		var xp = this.portPos.x;
+			yp = this.portPos.y;
+			
+		x = x-xp;
+		y = y-yp;
 
 		var atlas, img, frame;
 		var ctx = this.ctx;
